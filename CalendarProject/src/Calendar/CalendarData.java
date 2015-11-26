@@ -4,6 +4,7 @@ public class CalendarData {
 
 	private int year;
 	private int month;
+	private String day[];
 	
 	public int getYear(){
 		return year;
@@ -22,6 +23,8 @@ public class CalendarData {
 	public void setMonth(){
 		this.month=month;
 	}
-	
+	public String[] getDate(){
+
+	}
 	
 }
