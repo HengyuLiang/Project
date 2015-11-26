@@ -1,6 +1,6 @@
 package Calendar;
 
-public class Data {
+public class CalendarData {
 
 	private int year;
 	private int month;
