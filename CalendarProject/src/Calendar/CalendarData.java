@@ -22,7 +22,7 @@ public class CalendarData {
 		return month;
 	}
 	
-	public void setMonth(){
+	public void setMonth(int month){
 		this.month=month;
 	}
 	public String[] getDate(){
