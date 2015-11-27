@@ -48,6 +48,29 @@ public class CalendarUi extends JFrame{
 		gbcn.weighty = 0;
 		// add button ;
 		previousYear = new JButton("<<");
-		
+		JNorth.add(previousYear,gbcn);
+		gbcn.gridx=1;
+		gbcn.gridy=0;
+		gbcn.gridwidth=1;
+		gbcn.gridheight=1;
+		gbcn.weightx=0;
+		gbcn.weighty=0;
+		previousMonth=new JButton("<");
+		JNorth.add(previousMonth,gbcn);
+		gbcn.gridx=2;
+		gbcn.gridy=0;
+		gbcn.gridwidth=10;
+		gbcn.gridheight=1;
+		gbcn.weightx=1;
+		gbcn.weighty=0;
+		showDate=new JTextField(cd.getYear()+"."+cd.getMonth());
+		showDate.setHorizontalAlignment(JTextField.CENTER);
+		JNorth.add(showDate,gbcn);
+		gbcn.gridx=12;
+		gbcn.gridy=0;
+		gbcn.gridwidth=1;
+		gbcn.gridheight=1;
+		gbcn.weightx=0;
+		gbcn.weighty=0;
 	}
 }
