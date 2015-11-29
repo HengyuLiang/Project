@@ -3,6 +3,7 @@ package Calendar;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,7 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class CalendarUi extends JFrame{
-	JLabel lableDay[] = new JLabel[42];
+	JLabel labelDay[] = new JLabel[42];
 	JTextField showDate;
 	JButton weekName[] = new JButton[7];
 	String name[] = {"Sun","Mon","Tue","Wen","Thr","Fri","Sat"};
@@ -83,5 +84,19 @@ public class CalendarUi extends JFrame{
 		nextYear = new JButton(">>");
 		JNorth.add(nextYear, gbcn);
 		
+		//create date panel: show the dates
+				JPanel jpcenter=new JPanel();
+				jpcenter.setLayout(new GridLayout(7,7));
+				for(int i=0;i<7;i++){
+					weekName[i]=new JButton(name[i]);
+					jpcenter.add(weekName[i]);
+				}
+				for(int i=0;i<42;i++){
+					labelDay[i]=new JLabel("",JLabel.CENTER);
+					jpcenter.add(labelDay[i]);
+				}
+				String day[]=cd.getDate();
+				for(int i=0;i<42;i++)
+					labelDay[i].setText(day[i]);
 	}
 }
