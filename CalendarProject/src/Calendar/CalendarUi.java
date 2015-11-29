@@ -72,5 +72,16 @@ public class CalendarUi extends JFrame{
 		gbcn.gridheight=1;
 		gbcn.weightx=0;
 		gbcn.weighty=0;
+		nextMonth = new JButton(">");
+		JNorth.add(nextMonth, gbcn);
+		gbcn.gridx = 13;
+		gbcn.gridy = 0;
+		gbcn.gridwidth = 1;
+		gbcn.gridheight = 1;
+		gbcn.weightx = 0;
+		gbcn.weighty = 0;
+		nextYear = new JButton(">>");
+		JNorth.add(nextYear, gbcn);
+		
 	}
 }
