@@ -1,5 +1,6 @@
 package Calendar;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,6 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -85,18 +87,34 @@ public class CalendarUi extends JFrame{
 		JNorth.add(nextYear, gbcn);
 		
 		//create date panel: show the dates
-				JPanel jpcenter=new JPanel();
-				jpcenter.setLayout(new GridLayout(7,7));
-				for(int i=0;i<7;i++){
-					weekName[i]=new JButton(name[i]);
-					jpcenter.add(weekName[i]);
-				}
-				for(int i=0;i<42;i++){
-					labelDay[i]=new JLabel("",JLabel.CENTER);
-					jpcenter.add(labelDay[i]);
-				}
-				String day[]=cd.getDate();
-				for(int i=0;i<42;i++)
-					labelDay[i].setText(day[i]);
+		JPanel jpcenter=new JPanel();
+		jpcenter.setLayout(new GridLayout(7,7));
+		for(int i=0;i<7;i++){
+			weekName[i]=new JButton(name[i]);
+			jpcenter.add(weekName[i]);
+		}
+		for(int i=0;i<42;i++){
+			labelDay[i]=new JLabel("",JLabel.CENTER);
+			jpcenter.add(labelDay[i]);
+		}
+		String day[]=cd.getDate();
+		for(int i=0;i<42;i++)
+			labelDay[i].setText(day[i]);
+		//change the dates of each month by rolling
+		JScrollPane jsp = new JScrollPane(jpcenter);
+		
+		//combine jsp and JNorth
+		//in order to create a new panel in the center of the window
+		
+		JPanel JCenter = new JPanel();
+		JCenter.setLayout(new GridLayout());
+		JCenter.add(JNorth,BorderLayout.NORTH);
+		JCenter.add(jsp, BorderLayout.CENTER);
+		c.add(JCenter, BorderLayout.CENTER);
+		
+		//create message lable: show message amd save the content of event.
+		
+		
+		
 	}
 }
