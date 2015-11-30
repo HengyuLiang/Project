@@ -1,5 +1,6 @@
 package Calendar;
 import java.util.Date;
+
 public class Reservation 
 {
 	private String reservationId;
@@ -8,4 +9,5 @@ public class Reservation
 	private String resourceLocation;
 	private Date resourceDate;
 	
-	}
+	
+}
