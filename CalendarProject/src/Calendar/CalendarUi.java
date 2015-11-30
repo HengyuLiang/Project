@@ -146,7 +146,25 @@ public class CalendarUi extends JFrame{
 		JSouth.add(save,gbcs);
 		c.add(JSouth,BorderLayout.SOUTH);
 		
-		//
+		//create the menu
+		jmb = new JMenuBar();
+		File = new JMenu("File");
+		Open = new JMenuItem("Open");
+		Save = new JMenuItem("Save");
+		File.add(Open);
+		File.add(Save);
+		Search = new JMenu("Search");
+		Year = new JMenuItem("Year");
+		Month = new JMenuItem("Month");
+		Search.add(Year);
+		Search.add(Month);
+		jmb.add(File);
+		jmb.add(Search);
+		c.add(jmb,BorderLayout.NORTH);
+		
+		setVisible(true);
+		
+		
 		
 	}
 }
