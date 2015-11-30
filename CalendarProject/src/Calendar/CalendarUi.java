@@ -107,7 +107,7 @@ public class CalendarUi extends JFrame{
 		//in order to create a new panel in the center of the window
 		
 		JPanel JCenter = new JPanel();
-		JCenter.setLayout(new GridLayout());
+		JCenter.setLayout(new BorderLayout());
 		JCenter.add(JNorth,BorderLayout.NORTH);
 		JCenter.add(jsp, BorderLayout.CENTER);
 		c.add(JCenter, BorderLayout.CENTER);
