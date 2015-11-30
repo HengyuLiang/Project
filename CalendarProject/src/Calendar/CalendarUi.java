@@ -113,8 +113,40 @@ public class CalendarUi extends JFrame{
 		c.add(JCenter, BorderLayout.CENTER);
 		
 		//create message lable: show message amd save the content of event.
+		JPanel JSouth=new JPanel();
+		JSouth.setLayout(new GridBagLayout());
+		GridBagConstraints gbcs=new GridBagConstraints();
+		gbcn.fill=GridBagConstraints.BOTH;
+		gbcs.gridx=0;
+		gbcs.gridy=0;
+		gbcs.gridwidth=2;
+		gbcs.gridheight=4;
+		gbcs.weightx=0;
+		gbcs.weighty=1;
+		event=new JButton("EVENT:");
+		JSouth.add(event, gbcs);
+		gbcs.gridx=2;
+		gbcs.gridy=0;
+		gbcs.gridwidth=12;
+		gbcs.gridheight=4;
+		gbcs.weightx=1;
+		gbcs.weighty=1;
+		message=new JTextArea();
+		message.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+		message.setLineWrap(true); 
+		message.setWrapStyleWord(true);
+		JSouth.add(message,gbcs);
+		gbcs.gridx=14;
+		gbcs.gridy=0;
+		gbcs.gridwidth=2;
+		gbcs.gridheight=14;
+		gbcs.weightx=0;
+		gbcs.weighty=1;
+		save=new JButton("SAVE");
+		JSouth.add(save,gbcs);
+		c.add(JSouth,BorderLayout.SOUTH);
 		
-		
+		//
 		
 	}
 }
