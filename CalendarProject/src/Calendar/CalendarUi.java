@@ -110,6 +110,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		//in order to create a new panel in the center of the window
 		
 		JPanel JCenter = new JPanel();
+//<<<<<<< HEAD
 		JCenter.setLayout(new GridBagLayout());
 		GridBagConstraints Jc = new GridBagConstraints();
 		Jc.fill = GridBagConstraints.HORIZONTAL;
@@ -121,6 +122,11 @@ public class CalendarUi extends JFrame implements ActionListener{
 		JCenter.add(jsp, Jc);
 		//JCenter.add(JNorth,BorderLayout.NORTH);
 		//JCenter.add(jsp, BorderLayout.CENTER);
+//=======
+//		JCenter.setLayout(new BorderLayout());
+//		JCenter.add(JNorth,BorderLayout.NORTH);
+//		JCenter.add(jsp, BorderLayout.CENTER);
+//>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.github
 		c.add(JCenter, BorderLayout.CENTER);
 		
 		//create message label: show message and save the content of event.
@@ -230,6 +236,5 @@ public class CalendarUi extends JFrame implements ActionListener{
 				labelDay[i].setText(day[i]);
 			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}
-		  
 	}
-}
+}	  
