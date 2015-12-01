@@ -5,6 +5,8 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class CalendarUi extends JFrame{
+public class CalendarUi extends JFrame implements ActionListener{
 	JLabel labelDay[] = new JLabel[42];
 	JTextField showDate;
 	JButton weekName[] = new JButton[7];
@@ -27,16 +29,17 @@ public class CalendarUi extends JFrame{
 	JMenuBar jmb;
 	JMenu File, Search;
 	JMenuItem Open,Save, Year, Month;
-	int year = 2015, month = 12;
-	CalendarData cd;
+	int year = 2015, month = 12;  //initial date;
+	CalendarData calendar;
 	
 	public CalendarUi(){
 		Container c = getContentPane();
-		setSize(800,600);
+		setSize(500,350);
+		//c.setLayout(new GridLayout(4,1));
 		setTitle("MyCalendar");
-		cd = new CalendarData();
-		cd.setYear(year);
-		cd.setMonth(month);  //set initial data;
+		calendar = new CalendarData();
+		calendar.setYear(year);
+		calendar.setMonth(month);  //set initial data;
 
 		//create the operation panel;
 		JPanel JNorth = new JPanel();
@@ -66,7 +69,7 @@ public class CalendarUi extends JFrame{
 		gbcn.gridheight=1;
 		gbcn.weightx=1;
 		gbcn.weighty=0;
-		showDate=new JTextField(cd.getYear()+"."+cd.getMonth());
+		showDate=new JTextField(calendar.getYear()+"."+calendar.getMonth());
 		showDate.setHorizontalAlignment(JTextField.CENTER);
 		JNorth.add(showDate,gbcn);
 		gbcn.gridx=12;
@@ -97,7 +100,7 @@ public class CalendarUi extends JFrame{
 			labelDay[i]=new JLabel("",JLabel.CENTER);
 			jpcenter.add(labelDay[i]);
 		}
-		String day[]=cd.getDate();
+		String day[]=calendar.getDate();
 		for(int i=0;i<42;i++)
 			labelDay[i].setText(day[i]);
 		//change the dates of each month by rolling
@@ -107,12 +110,20 @@ public class CalendarUi extends JFrame{
 		//in order to create a new panel in the center of the window
 		
 		JPanel JCenter = new JPanel();
-		JCenter.setLayout(new GridLayout());
-		JCenter.add(JNorth,BorderLayout.NORTH);
-		JCenter.add(jsp, BorderLayout.CENTER);
+		JCenter.setLayout(new GridBagLayout());
+		GridBagConstraints Jc = new GridBagConstraints();
+		Jc.fill = GridBagConstraints.HORIZONTAL;
+		Jc.gridx = 0;
+		Jc.gridy = 0;
+		JCenter.add(JNorth,Jc);
+		Jc.gridx = 0;
+		Jc.gridy = 1;
+		JCenter.add(jsp, Jc);
+		//JCenter.add(JNorth,BorderLayout.NORTH);
+		//JCenter.add(jsp, BorderLayout.CENTER);
 		c.add(JCenter, BorderLayout.CENTER);
 		
-		//create message lable: show message amd save the content of event.
+		//create message label: show message and save the content of event.
 		JPanel JSouth=new JPanel();
 		JSouth.setLayout(new GridBagLayout());
 		GridBagConstraints gbcs=new GridBagConstraints();
@@ -165,6 +176,12 @@ public class CalendarUi extends JFrame{
 		setVisible(true);
 		
 		
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }
