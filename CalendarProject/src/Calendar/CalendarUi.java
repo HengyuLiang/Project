@@ -199,6 +199,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 			String day[] = calendar.getDate();
 			for(int i=0;i<42;i++)
 				labelDay[i].setText(day[i]);
+			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}else if(e.getSource()==previousMonth){
 			month = month-1;
 			if(month<1){
@@ -210,12 +211,14 @@ public class CalendarUi extends JFrame implements ActionListener{
 		    String day[]=calendar.getDate();
 		    for(int i=0;i<42;i++)
 				labelDay[i].setText(day[i]);
+		    showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}else if(e.getSource()==nextYear){
 			year = year+1;
 			calendar.setYear(year);
 			String day[] = calendar.getDate();
 			for(int i=0;i<42;i++)
 				labelDay[i].setText(day[i]);
+			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}else if(e.getSource()==previousYear){
 			year = year-1;
 			if(year<1){
@@ -225,7 +228,8 @@ public class CalendarUi extends JFrame implements ActionListener{
 			String day[] = calendar.getDate();
 			for(int i=0;i<42;i++)
 				labelDay[i].setText(day[i]);
+			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}
-		  showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
+		  
 	}
 }
