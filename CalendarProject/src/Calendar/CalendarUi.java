@@ -36,7 +36,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 	
 	public CalendarUi(){
 		Container c = getContentPane();
-		setSize(500,350);
+		setSize(800,600);
 		//c.setLayout(new GridLayout(4,1));
 		setTitle("MyCalendar");
 		calendar = new CalendarData();
@@ -105,6 +105,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		String day[]=calendar.getDate();
 		for(int i=0;i<42;i++)
 			labelDay[i].setText(day[i]);
+		
 		//change the dates of each month by rolling
 		JScrollPane jsp = new JScrollPane(jpcenter);
 		
@@ -112,23 +113,9 @@ public class CalendarUi extends JFrame implements ActionListener{
 		//in order to create a new panel in the center of the window
 		
 		JPanel JCenter = new JPanel();
-//<<<<<<< HEAD
-		JCenter.setLayout(new GridBagLayout());
-		GridBagConstraints Jc = new GridBagConstraints();
-		Jc.fill = GridBagConstraints.HORIZONTAL;
-		Jc.gridx = 0;
-		Jc.gridy = 0;
-		JCenter.add(JNorth,Jc);
-		Jc.gridx = 0;
-		Jc.gridy = 1;
-		JCenter.add(jsp, Jc);
-		//JCenter.add(JNorth,BorderLayout.NORTH);
-		//JCenter.add(jsp, BorderLayout.CENTER);
-//=======
-//		JCenter.setLayout(new BorderLayout());
-//		JCenter.add(JNorth,BorderLayout.NORTH);
-//		JCenter.add(jsp, BorderLayout.CENTER);
-//>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.github
+		JCenter.setLayout(new BorderLayout());
+		JCenter.add(JNorth,BorderLayout.NORTH);
+		JCenter.add(jsp,BorderLayout.CENTER);
 		c.add(JCenter, BorderLayout.CENTER);
 		
 		//create message label: show message and save the content of event.
