@@ -1,6 +1,8 @@
 package Calendar;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class CalendarData {
 
@@ -21,10 +23,27 @@ public class CalendarData {
 	public int getMonth(){
 		return month;
 	}
-	
+
 	public void setMonth(int month){
 		this.month=month;
 	}
+	
+	public int getToyear(){
+		Calendar c=Calendar.getInstance();
+		return c.get(Calendar.YEAR); 
+	}
+	
+	public int getTomonth(){
+		Calendar c=Calendar.getInstance();
+		return c.get(Calendar.MONTH)+1; 
+	}
+	
+	public int getToday(){
+		Calendar c=Calendar.getInstance();
+		return c.get(Calendar.DATE)+c.get(Calendar.DAY_OF_WEEK)-3; 
+		
+	}
+	
 	public String[] getDate(){
 		String temp[]=new String[42];
 		Calendar c=Calendar.getInstance();

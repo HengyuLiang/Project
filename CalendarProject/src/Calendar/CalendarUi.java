@@ -1,7 +1,9 @@
 package Calendar;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -21,6 +23,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import java.util.Calendar;
+
 public class CalendarUi extends JFrame implements ActionListener{
 	JLabel labelDay[] = new JLabel[42];
 	JTextField showDate;
@@ -37,7 +41,6 @@ public class CalendarUi extends JFrame implements ActionListener{
 	public CalendarUi(){
 		Container c = getContentPane();
 		setSize(800,600);
-		//c.setLayout(new GridLayout(4,1));
 		setTitle("MyCalendar");
 		calendar = new CalendarData();
 		calendar.setYear(year);
@@ -103,11 +106,18 @@ public class CalendarUi extends JFrame implements ActionListener{
 			jpcenter.add(labelDay[i]);
 		}
 		String day[]=calendar.getDate();
-		for(int i=0;i<42;i++)
+		for(int i=0;i<42;i++){
 			labelDay[i].setText(day[i]);
-		
-		//change the dates of each month by rolling
-		JScrollPane jsp = new JScrollPane(jpcenter);
+			if(i%7==0||i%7==6){
+				labelDay[i].setForeground(Color.red);
+			}
+			if(calendar.getYear()==calendar.getToyear())
+				if(calendar.getMonth()==calendar.getTomonth())
+					if(i==calendar.getToday()){
+						labelDay[i].setFont(new Font("Arial", 1, 20));
+						labelDay[i].setForeground(Color.blue);
+					}
+		}
 		
 		//combine jsp and JNorth
 		//in order to create a new panel in the center of the window
@@ -115,7 +125,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		JPanel JCenter = new JPanel();
 		JCenter.setLayout(new BorderLayout());
 		JCenter.add(JNorth,BorderLayout.NORTH);
-		JCenter.add(jsp,BorderLayout.CENTER);
+		JCenter.add(jpcenter,BorderLayout.CENTER);
 		c.add(JCenter, BorderLayout.CENTER);
 		
 		//create message label: show message and save the content of event.
@@ -199,8 +209,18 @@ public class CalendarUi extends JFrame implements ActionListener{
 			calendar.setMonth(month);
 			calendar.setYear(year);
 			String day[] = calendar.getDate();
-			for(int i=0;i<42;i++)
+			for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
+				if(i%7==0||i%7==6){
+					labelDay[i].setForeground(Color.red);
+				}
+				if(calendar.getYear()==calendar.getToyear())
+					if(calendar.getMonth()==calendar.getTomonth())
+						if(i==calendar.getToday()){
+							labelDay[i].setFont(new Font("Arial", 1, 20));
+							labelDay[i].setForeground(Color.blue);
+						}
+			}
 			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}else if(e.getSource()==previousMonth){
 			month = month-1;
@@ -211,15 +231,35 @@ public class CalendarUi extends JFrame implements ActionListener{
 			calendar.setMonth(month);
 			calendar.setYear(year);
 		    String day[]=calendar.getDate();
-		    for(int i=0;i<42;i++)
+		    for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
+				if(i%7==0||i%7==6){
+					labelDay[i].setForeground(Color.red);
+				}
+				if(calendar.getYear()==calendar.getToyear())
+					if(calendar.getMonth()==calendar.getTomonth())
+						if(i==calendar.getToday()){
+							labelDay[i].setFont(new Font("Arial", 1, 20));
+							labelDay[i].setForeground(Color.blue);
+						}
+			}
 		    showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}else if(e.getSource()==nextYear){
 			year = year+1;
 			calendar.setYear(year);
 			String day[] = calendar.getDate();
-			for(int i=0;i<42;i++)
+			for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
+				if(i%7==0||i%7==6){
+					labelDay[i].setForeground(Color.red);
+				}
+				if(calendar.getYear()==calendar.getToyear())
+					if(calendar.getMonth()==calendar.getTomonth())
+						if(i==calendar.getToday()){
+							labelDay[i].setFont(new Font("Arial", 1, 20));
+							labelDay[i].setForeground(Color.blue);
+						}
+			}
 			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}else if(e.getSource()==previousYear){
 			year = year-1;
@@ -228,8 +268,19 @@ public class CalendarUi extends JFrame implements ActionListener{
 			}
 			calendar.setYear(year);
 			String day[] = calendar.getDate();
-			for(int i=0;i<42;i++)
+			for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
+				if(i%7==0||i%7==6){
+					labelDay[i].setForeground(Color.red);
+				}
+				
+				if(calendar.getYear()==calendar.getToyear())
+					if(calendar.getMonth()==calendar.getTomonth())
+						if(i==calendar.getToday()){
+							labelDay[i].setFont(new Font("Arial", 1, 20));
+							labelDay[i].setForeground(Color.blue);
+						}
+			}
 			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}
 	}
