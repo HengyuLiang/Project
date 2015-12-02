@@ -123,14 +123,14 @@ public class CalendarUi extends JFrame implements ActionListener{
 		//combine jsp and JNorth
 //=======
 		
-//>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
-//		//in order to create a new panel in the center of the window
-//		
-//		JPanel JCenter = new JPanel();
-//		JCenter.setLayout(new BorderLayout());
-//		JCenter.add(JNorth,BorderLayout.NORTH);
-//		JCenter.add(jpcenter,BorderLayout.CENTER);
-//		c.add(JCenter, BorderLayout.CENTER);
+
+		//in order to create a new panel in the center of the window
+		
+		JPanel JCenter = new JPanel();
+		JCenter.setLayout(new BorderLayout());
+		JCenter.add(JNorth,BorderLayout.NORTH);
+		JCenter.add(jpcenter,BorderLayout.CENTER);
+		c.add(JCenter, BorderLayout.CENTER);
 		
 		//create message label: show message and save the content of event.
 		JPanel JSouth=new JPanel();
