@@ -108,6 +108,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		String day[]=calendar.getDate();
 		for(int i=0;i<42;i++){
 			labelDay[i].setText(day[i]);
+//<<<<<<< HEAD
 			if(i%7==0||i%7==6){
 				labelDay[i].setForeground(Color.red);
 			}
@@ -120,13 +121,16 @@ public class CalendarUi extends JFrame implements ActionListener{
 		}
 		
 		//combine jsp and JNorth
-		//in order to create a new panel in the center of the window
+//=======
 		
-		JPanel JCenter = new JPanel();
-		JCenter.setLayout(new BorderLayout());
-		JCenter.add(JNorth,BorderLayout.NORTH);
-		JCenter.add(jpcenter,BorderLayout.CENTER);
-		c.add(JCenter, BorderLayout.CENTER);
+//>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
+//		//in order to create a new panel in the center of the window
+//		
+//		JPanel JCenter = new JPanel();
+//		JCenter.setLayout(new BorderLayout());
+//		JCenter.add(JNorth,BorderLayout.NORTH);
+//		JCenter.add(jpcenter,BorderLayout.CENTER);
+//		c.add(JCenter, BorderLayout.CENTER);
 		
 		//create message label: show message and save the content of event.
 		JPanel JSouth=new JPanel();
