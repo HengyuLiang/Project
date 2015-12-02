@@ -108,21 +108,17 @@ public class CalendarUi extends JFrame implements ActionListener{
 		String day[]=calendar.getDate();
 		for(int i=0;i<42;i++){
 			labelDay[i].setText(day[i]);
-//<<<<<<< HEAD
+			if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
+				
+				labelDay[i].setForeground(Color.blue);
+			}else{
+				labelDay[i].setForeground(Color.BLACK);
+			}
 			if(i%7==0||i%7==6){
 				labelDay[i].setForeground(Color.red);
 			}
-			if(calendar.getYear()==calendar.getToyear())
-				if(calendar.getMonth()==calendar.getTomonth())
-					if(i==calendar.getToday()){
-						labelDay[i].setFont(new Font("Arial", 1, 20));
-						labelDay[i].setForeground(Color.blue);
-					}
+
 		}
-		
-		//combine jsp and JNorth
-//=======
-		
 
 		//in order to create a new panel in the center of the window
 		
@@ -215,15 +211,18 @@ public class CalendarUi extends JFrame implements ActionListener{
 			String day[] = calendar.getDate();
 			for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
+//				if(i%7==0||i%7==6){
+//					labelDay[i].setForeground(Color.red);
+//				}
+				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
+					
+					labelDay[i].setForeground(Color.blue);
+				}else{
+					labelDay[i].setForeground(Color.BLACK);
+				}
 				if(i%7==0||i%7==6){
 					labelDay[i].setForeground(Color.red);
 				}
-				if(calendar.getYear()==calendar.getToyear())
-					if(calendar.getMonth()==calendar.getTomonth())
-						if(i==calendar.getToday()){
-							labelDay[i].setFont(new Font("Arial", 1, 20));
-							labelDay[i].setForeground(Color.blue);
-						}
 			}
 			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}else if(e.getSource()==previousMonth){
@@ -237,15 +236,18 @@ public class CalendarUi extends JFrame implements ActionListener{
 		    String day[]=calendar.getDate();
 		    for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
+//				if(i%7==0||i%7==6){
+//					labelDay[i].setForeground(Color.red);
+//				}
+				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
+					
+					labelDay[i].setForeground(Color.blue);
+				}else{
+					labelDay[i].setForeground(Color.BLACK);
+				}
 				if(i%7==0||i%7==6){
 					labelDay[i].setForeground(Color.red);
 				}
-				if(calendar.getYear()==calendar.getToyear())
-					if(calendar.getMonth()==calendar.getTomonth())
-						if(i==calendar.getToday()){
-							labelDay[i].setFont(new Font("Arial", 1, 20));
-							labelDay[i].setForeground(Color.blue);
-						}
 			}
 		    showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}else if(e.getSource()==nextYear){
@@ -254,15 +256,17 @@ public class CalendarUi extends JFrame implements ActionListener{
 			String day[] = calendar.getDate();
 			for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
+//				if(i%7==0||i%7==6){
+//					labelDay[i].setForeground(Color.red);
+//				}
+				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
+					labelDay[i].setForeground(Color.blue);
+				}else{
+					labelDay[i].setForeground(Color.BLACK);
+				}
 				if(i%7==0||i%7==6){
 					labelDay[i].setForeground(Color.red);
 				}
-				if(calendar.getYear()==calendar.getToyear())
-					if(calendar.getMonth()==calendar.getTomonth())
-						if(i==calendar.getToday()){
-							labelDay[i].setFont(new Font("Arial", 1, 20));
-							labelDay[i].setForeground(Color.blue);
-						}
 			}
 			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}else if(e.getSource()==previousYear){
@@ -274,16 +278,18 @@ public class CalendarUi extends JFrame implements ActionListener{
 			String day[] = calendar.getDate();
 			for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
+//				if(i%7==0||i%7==6){
+//					labelDay[i].setForeground(Color.red);
+//				}
+//				
+				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
+					labelDay[i].setForeground(Color.blue);
+				}else{
+					labelDay[i].setForeground(Color.BLACK);
+				}
 				if(i%7==0||i%7==6){
 					labelDay[i].setForeground(Color.red);
 				}
-				
-				if(calendar.getYear()==calendar.getToyear())
-					if(calendar.getMonth()==calendar.getTomonth())
-						if(i==calendar.getToday()){
-							labelDay[i].setFont(new Font("Arial", 1, 20));
-							labelDay[i].setForeground(Color.blue);
-						}
 			}
 			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}

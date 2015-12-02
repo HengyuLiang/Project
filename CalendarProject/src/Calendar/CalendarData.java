@@ -40,8 +40,10 @@ public class CalendarData {
 	
 	public int getToday(){
 		Calendar c=Calendar.getInstance();
-		return c.get(Calendar.DATE)+c.get(Calendar.DAY_OF_WEEK)-3; 
-		
+		System.out.println(c.get(Calendar.DAY_OF_MONTH));
+
+		return c.get(Calendar.DAY_OF_WEEK)-1; 
+				
 	}
 	
 	public String[] getDate(){
