@@ -106,16 +106,12 @@ public class CalendarUi extends JFrame implements ActionListener{
 		for(int i=0;i<42;i++)
 			labelDay[i].setText(day[i]);
 		
-		//change the dates of each month by rolling
-		JScrollPane jsp = new JScrollPane(jpcenter);
-		
-		//combine jsp and JNorth
 		//in order to create a new panel in the center of the window
 		
 		JPanel JCenter = new JPanel();
 		JCenter.setLayout(new BorderLayout());
 		JCenter.add(JNorth,BorderLayout.NORTH);
-		JCenter.add(jsp,BorderLayout.CENTER);
+		JCenter.add(jpcenter,BorderLayout.CENTER);
 		c.add(JCenter, BorderLayout.CENTER);
 		
 		//create message label: show message and save the content of event.
