@@ -39,10 +39,12 @@ public class CalendarData {
 	}
 	
 	public int getToday(){
-		Calendar c=Calendar.getInstance();
-		System.out.println(c.get(Calendar.DAY_OF_MONTH));
+		Calendar c1=Calendar.getInstance();
 
-		return c.get(Calendar.DAY_OF_WEEK)-1; 
+		Calendar c2=Calendar.getInstance();
+		c2.set(year, month-1,1);
+		
+		return c1.get(Calendar.DAY_OF_MONTH)+c2.get(Calendar.DAY_OF_WEEK)-2; 
 				
 	}
 	
