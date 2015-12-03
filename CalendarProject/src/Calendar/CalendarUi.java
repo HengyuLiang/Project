@@ -23,14 +23,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import java.util.Calendar;
-
 public class CalendarUi extends JFrame implements ActionListener{
 	JLabel labelDay[] = new JLabel[42];
-	JTextField showDate;
+	JLabel showDate;
 	JButton weekName[] = new JButton[7];
 	String name[] = {"Sun","Mon","Tue","Wen","Thr","Fri","Sat"};
-	JButton nextMonth, previousMonth,nextYear,previousYear,save, event;
+	JButton nextMonth, previousMonth,nextYear,previousYear,save, delete;
 	JTextArea message;
 	JMenuBar jmb;
 	JMenu File, Search;
@@ -74,7 +72,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		gbcn.gridheight=1;
 		gbcn.weightx=1;
 		gbcn.weighty=0;
-		showDate=new JTextField(calendar.getYear()+"."+calendar.getMonth());
+		showDate=new JLabel(calendar.getYear()+"."+calendar.getMonth());
 		showDate.setHorizontalAlignment(JTextField.CENTER);
 		JNorth.add(showDate,gbcn);
 		gbcn.gridx=12;
@@ -132,34 +130,36 @@ public class CalendarUi extends JFrame implements ActionListener{
 		JPanel JSouth=new JPanel();
 		JSouth.setLayout(new GridBagLayout());
 		GridBagConstraints gbcs=new GridBagConstraints();
-		gbcn.fill=GridBagConstraints.BOTH;
+		gbcs.fill=GridBagConstraints.BOTH;
 		gbcs.gridx=0;
 		gbcs.gridy=0;
-		gbcs.gridwidth=2;
-		gbcs.gridheight=4;
-		gbcs.weightx=0;
-		gbcs.weighty=1;
-		event=new JButton("EVENT:");
-		JSouth.add(event, gbcs);
-		gbcs.gridx=2;
-		gbcs.gridy=0;
 		gbcs.gridwidth=12;
-		gbcs.gridheight=4;
+		gbcs.gridheight=10;
 		gbcs.weightx=1;
 		gbcs.weighty=1;
 		message=new JTextArea();
+		JScrollPane jnote=new JScrollPane(message);
 		message.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
 		message.setLineWrap(true); 
 		message.setWrapStyleWord(true);
-		JSouth.add(message,gbcs);
-		gbcs.gridx=14;
+		message.setFont(new Font("Arial",1,20));
+		JSouth.add(jnote,gbcs);
+		gbcs.gridx=12;
 		gbcs.gridy=0;
 		gbcs.gridwidth=2;
-		gbcs.gridheight=14;
+		gbcs.gridheight=5;
 		gbcs.weightx=0;
-		gbcs.weighty=1;
-		save=new JButton("SAVE");
+		gbcs.weighty=0; 
+		save=new JButton(" SAVE ");
 		JSouth.add(save,gbcs);
+		gbcs.gridx=12;
+		gbcs.gridy=5;
+		gbcs.gridwidth=2;
+		gbcs.gridheight=5;
+		gbcs.weightx=0;
+		gbcs.weighty=0;
+		delete=new JButton("DELETE");
+		JSouth.add(delete,gbcs);
 		c.add(JSouth,BorderLayout.SOUTH);
 		
 		//create the menu

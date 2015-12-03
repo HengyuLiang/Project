@@ -1,14 +1,11 @@
 package Calendar;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
 public class CalendarData {
 
 	private int year;
 	private int month;
-	private String day[];
 	
 	public int getYear(){
 		return year;
