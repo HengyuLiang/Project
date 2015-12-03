@@ -30,7 +30,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 	JLabel showDate;
 	JButton weekName[] = new JButton[7];
 	String name[] = {"Sun","Mon","Tue","Wen","Thr","Fri","Sat"};
-	JButton nextMonth, previousMonth,nextYear,previousYear,save, delete;
+	JButton nextMonth, previousMonth,nextYear,previousYear,event, delete;
 	JTextArea message;
 	JMenuBar jmb;
 	JMenu File, Search;
@@ -168,8 +168,13 @@ public class CalendarUi extends JFrame implements ActionListener{
 		gbcs.gridheight=5;
 		gbcs.weightx=0;
 		gbcs.weighty=0; 
-		save=new JButton(" SAVE ");
-		JSouth.add(save,gbcs);
+		event=new JButton(" EVENT ");
+		event.addActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent ae){
+			setUpCalendarEvent(CalendarUi.this, calendar);
+		}
+	});
+		JSouth.add(event,gbcs);
 		gbcs.gridx=12;
 		gbcs.gridy=5;
 		gbcs.gridwidth=2;
@@ -348,22 +353,6 @@ public class CalendarUi extends JFrame implements ActionListener{
 		detailspanel.add(new JLabel("End Time:"));
 		detailspanel.add (endtime);
 		dialog.add(detailspanel,BorderLayout.CENTER);
-		
-
-		
-
-
-		
-		
-
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		dialog.setVisible(true);
 		
