@@ -203,8 +203,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 				 System.exit(0);
 			 }
 		 } );
-		
-		
+			
 	}
 
 	@Override
@@ -313,6 +312,14 @@ public class CalendarUi extends JFrame implements ActionListener{
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		JButton add = new JButton("Add");
 		JButton cancel = new JButton("Cancel");
+		cancel.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				dialog.dispose();
+			}
+		});
 		buttonPanel.add(add);
 		buttonPanel.add(cancel);
 		dialog.add(buttonPanel,BorderLayout.SOUTH);
