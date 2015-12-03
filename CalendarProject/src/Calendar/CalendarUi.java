@@ -135,22 +135,6 @@ public class CalendarUi extends JFrame implements ActionListener{
 		gbcs.fill=GridBagConstraints.BOTH;
 		gbcs.gridx=0;
 		gbcs.gridy=0;
-//<<<<<<< HEAD
-//=======
-//		gbcs.gridwidth=2;
-//		gbcs.gridheight=4;
-//		gbcs.weightx=0;
-//		gbcs.weighty=1;
-//		event=new JButton("EVENT:");
-//		event.addActionListener(new ActionListener(){
-//			public void actionPerformed(ActionEvent ae){
-//				setUpCalendarEvent(CalendarUi.this, calendar);
-//			}
-//		});
-//		JSouth.add(event, gbcs);
-//		gbcs.gridx=2;
-//		gbcs.gridy=0;
-//>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
 		gbcs.gridwidth=12;
 		gbcs.gridheight=10;
 		gbcs.weightx=1;
@@ -216,8 +200,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 				 System.exit(0);
 			 }
 		 } );
-		
-		
+			
 	}
 
 	@Override
@@ -326,6 +309,14 @@ public class CalendarUi extends JFrame implements ActionListener{
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		JButton add = new JButton("Add");
 		JButton cancel = new JButton("Cancel");
+		cancel.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				dialog.dispose();
+			}
+		});
 		buttonPanel.add(add);
 		buttonPanel.add(cancel);
 		dialog.add(buttonPanel,BorderLayout.SOUTH);
