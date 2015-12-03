@@ -13,6 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -36,7 +37,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 	JMenu File, Search;
 	JMenuItem Open,Save, Year, Month;
 	int year = 2015, month = 12;  //initial date;
-	CalendarData calendar;
+	final CalendarData calendar;
 	
 	public CalendarUi(){
 		Container c = getContentPane();
@@ -95,7 +96,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		JNorth.add(nextYear, gbcn);
 		
 		//create date panel: show the dates
-		JPanel jpcenter=new JPanel();
+		final JPanel jpcenter=new JPanel();
 		jpcenter.setLayout(new GridLayout(7,7));
 		for(int i=0;i<7;i++){
 			weekName[i]=new JButton(name[i]);
@@ -122,7 +123,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 
 		//in order to create a new panel in the center of the window
 		
-		JPanel JCenter = new JPanel();
+		final JPanel JCenter = new JPanel();
 		JCenter.setLayout(new BorderLayout());
 		JCenter.add(JNorth,BorderLayout.NORTH);
 		JCenter.add(jpcenter,BorderLayout.CENTER);
@@ -140,6 +141,11 @@ public class CalendarUi extends JFrame implements ActionListener{
 		gbcs.weightx=0;
 		gbcs.weighty=1;
 		event=new JButton("EVENT:");
+		event.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				setUpCalendarEvent(CalendarUi.this, calendar);
+			}
+		});
 		JSouth.add(event, gbcs);
 		gbcs.gridx=2;
 		gbcs.gridy=0;
@@ -293,6 +299,14 @@ public class CalendarUi extends JFrame implements ActionListener{
 			}
 			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}
+	}
+	
+	private void setUpCalendarEvent(final JFrame jFrame, final CalendarData calData){
+		JDialog dialog=new JDialog(jFrame,"Create Event",true);
+		dialog.setSize(300, 200);
+		
+		dialog.setVisible(true);
+		
 	}
 }	  
 //need new actionListener
