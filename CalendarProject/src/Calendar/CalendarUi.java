@@ -161,6 +161,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		message.setLineWrap(true); 
 		message.setWrapStyleWord(true);
 		message.setFont(new Font("Arial",1,20));
+		message.setEnabled(false);
 		JSouth.add(jnote,gbcs);
 		gbcs.gridx=12;
 		gbcs.gridy=0;
