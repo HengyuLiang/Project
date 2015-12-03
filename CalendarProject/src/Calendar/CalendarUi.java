@@ -10,6 +10,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -135,22 +137,6 @@ public class CalendarUi extends JFrame implements ActionListener{
 		gbcs.fill=GridBagConstraints.BOTH;
 		gbcs.gridx=0;
 		gbcs.gridy=0;
-//<<<<<<< HEAD
-//=======
-//		gbcs.gridwidth=2;
-//		gbcs.gridheight=4;
-//		gbcs.weightx=0;
-//		gbcs.weighty=1;
-//		event=new JButton("EVENT:");
-//		event.addActionListener(new ActionListener(){
-//			public void actionPerformed(ActionEvent ae){
-//				setUpCalendarEvent(CalendarUi.this, calendar);
-//			}
-//		});
-//		JSouth.add(event, gbcs);
-//		gbcs.gridx=2;
-//		gbcs.gridy=0;
-//>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
 		gbcs.gridwidth=12;
 		gbcs.gridheight=10;
 		gbcs.weightx=1;
