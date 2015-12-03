@@ -3,6 +3,7 @@ package Calendar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -34,7 +36,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 	JMenu File, Search;
 	JMenuItem Open,Save, Year, Month;
 	int year = 2015, month = 12;  //initial date;
-	CalendarData calendar;
+	final CalendarData calendar;
 	
 	public CalendarUi(){
 		Container c = getContentPane();
@@ -93,7 +95,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		JNorth.add(nextYear, gbcn);
 		
 		//create date panel: show the dates
-		JPanel jpcenter=new JPanel();
+		final JPanel jpcenter=new JPanel();
 		jpcenter.setLayout(new GridLayout(7,7));
 		for(int i=0;i<7;i++){
 			weekName[i]=new JButton(name[i]);
@@ -120,7 +122,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 
 		//in order to create a new panel in the center of the window
 		
-		JPanel JCenter = new JPanel();
+		final JPanel JCenter = new JPanel();
 		JCenter.setLayout(new BorderLayout());
 		JCenter.add(JNorth,BorderLayout.NORTH);
 		JCenter.add(jpcenter,BorderLayout.CENTER);
@@ -133,6 +135,22 @@ public class CalendarUi extends JFrame implements ActionListener{
 		gbcs.fill=GridBagConstraints.BOTH;
 		gbcs.gridx=0;
 		gbcs.gridy=0;
+//<<<<<<< HEAD
+//=======
+//		gbcs.gridwidth=2;
+//		gbcs.gridheight=4;
+//		gbcs.weightx=0;
+//		gbcs.weighty=1;
+//		event=new JButton("EVENT:");
+//		event.addActionListener(new ActionListener(){
+//			public void actionPerformed(ActionEvent ae){
+//				setUpCalendarEvent(CalendarUi.this, calendar);
+//			}
+//		});
+//		JSouth.add(event, gbcs);
+//		gbcs.gridx=2;
+//		gbcs.gridy=0;
+//>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
 		gbcs.gridwidth=12;
 		gbcs.gridheight=10;
 		gbcs.weightx=1;
@@ -293,6 +311,62 @@ public class CalendarUi extends JFrame implements ActionListener{
 			}
 			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}
+	}
+	
+	private void setUpCalendarEvent(final JFrame jFrame, final CalendarData calData){
+		JDialog dialog=new JDialog(jFrame,"Create Event",true);
+		dialog.setSize(300, 200);
+		dialog.setBounds(jFrame.getWidth() - 300, jFrame.getHeight() - 200, 300, 200);
+		dialog.setLayout(new BorderLayout());
+		JPanel buttonPanel = new JPanel(new FlowLayout());
+		JButton add = new JButton("Add");
+		JButton cancel = new JButton("Cancel");
+		buttonPanel.add(add);
+		buttonPanel.add(cancel);
+		dialog.add(buttonPanel,BorderLayout.SOUTH);
+		JPanel detailspanel = new JPanel(new GridLayout(6,2));
+		JTextField eventname = new JTextField(20);
+		JTextField eventlocation = new JTextField(20);
+		JTextField eventdiscription = new JTextField(20);
+		JTextField eventdate = new JTextField(20);
+		JTextField starttime = new JTextField(20);
+		JTextField endtime = new JTextField(20);
+		detailspanel.add(new JLabel("Event Name:"));
+		detailspanel.add (eventname);
+		detailspanel.add(new JLabel("Event Location:"));
+		detailspanel.add (eventlocation);
+
+		detailspanel.add(new JLabel("Event Discription"));
+		detailspanel.add (eventdiscription);
+
+		detailspanel.add(new JLabel("Event Date:"));
+		detailspanel.add (eventdate);
+
+		detailspanel.add(new JLabel("Start Time:"));
+		detailspanel.add (starttime);
+		
+		detailspanel.add(new JLabel("End Time:"));
+		detailspanel.add (endtime);
+		dialog.add(detailspanel,BorderLayout.CENTER);
+		
+
+		
+
+
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		dialog.setVisible(true);
+		
 	}
 }	  
 //need new actionListener
