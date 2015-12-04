@@ -32,14 +32,14 @@ public class NewWindow extends JFrame{
 		js.setLayout(new BorderLayout());
 		JButton saveS=new JButton("Save");
 		JButton cancelS=new JButton("Cancel");
-//		cancelS.addActionListener(new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				
-//				((Window) c).dispose();
-//			}
-//		});
+		cancelS.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			
+			}
+		});
 		JPanel jbs=new JPanel();
 		jbs.add(saveS,BorderLayout.EAST);
 		jbs.add(cancelS, BorderLayout.WEST);
