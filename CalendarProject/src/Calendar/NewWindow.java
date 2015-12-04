@@ -25,10 +25,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class NewWindow extends JFrame{
-	File file;
-	Hashtable table;
-	
-	public NewWindow(){
+	File fileHoliday,fileEventName,fileEventLocation,fileEventContent,fileResName,fileResLocation,fileResContent;
+	Hashtable tableHoliday,tableEventName,tableEventLocation,tableEventContent,tableResName,tableResLocation,tableResContent;
+	int year,month,day;
+	public NewWindow(int year, int month, int day){
+		this.year = year;
+		this.month = month;
+		this.day = day;
 		Container c = getContentPane();
 		setSize(400,300);
 		setLocation(800, 0);
@@ -38,34 +41,37 @@ public class NewWindow extends JFrame{
 		JPanel js=new JPanel();
 		js.setLayout(new BorderLayout());
 		JButton saveS=new JButton("Save");
-		saveS.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				
-			}
-		});
-		JButton deleteS=new JButton("Delete");
-		deleteS.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				dispose();
-			
-			}
-		});
-		JButton cancelS=new JButton("Cancel");
-		cancelS.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				dispose();
-			
-			}
-		});
-		JPanel jbs=new JPanel();
-		jbs.add(saveS,BorderLayout.EAST);
-		jbs.add(deleteS,BorderLayout.CENTER);
-		jbs.add(cancelS, BorderLayout.WEST);
-		js.add(jbs,BorderLayout.SOUTH);
+////<<<<<<< HEAD
+////		saveS.addActionListener(new ActionListener(){
+////			public void actionPerformed(ActionEvent e){
+////				
+////			}
+////		});
+////		JButton deleteS=new JButton("Delete");
+////		deleteS.addActionListener(new ActionListener(){
+////			@Override
+////			public void actionPerformed(ActionEvent e) {
+////				// TODO Auto-generated method stub
+////				dispose();
+////			
+////			}
+////		});
+////=======
+////>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
+////		JButton cancelS=new JButton("Cancel");
+//		cancelS.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				dispose();
+//			
+//			}
+//		});
+//		JPanel jbs=new JPanel();
+//		jbs.add(saveS,BorderLayout.EAST);
+//		jbs.add(deleteS,BorderLayout.CENTER);
+//		jbs.add(cancelS, BorderLayout.WEST);
+//		js.add(jbs,BorderLayout.SOUTH);
 		JPanel details=new JPanel();
 		details.setLayout(new GridBagLayout());
 		GridBagConstraints gbcs=new GridBagConstraints();
@@ -93,7 +99,27 @@ public class NewWindow extends JFrame{
 		details.add(jnames,gbcs);
 		js.add(details,BorderLayout.CENTER);
 		tab.addTab("SpecialDay", js);
-		
+		saveS.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				try{
+					String content = namesa.getText();
+					String key = ""+year+""+month+""+day;
+					FileInputStream   inOne=new FileInputStream(fileHoliday);
+					ObjectInputStream inTwo=new ObjectInputStream(inOne);
+					tableHoliday=(Hashtable)inTwo.readObject();
+					inOne.close();
+					inTwo.close();
+					tableHoliday.put(key,content);                                  
+					FileOutputStream out=new FileOutputStream(fileHoliday);
+					ObjectOutputStream objectOut=new ObjectOutputStream(out);
+					objectOut.writeObject(tableHoliday);
+					objectOut.close();
+					out.close();
+		        }
+		      catch(Exception ee){
+		        }
+			}
+		});
 		
 		//create the event JPanel
 		JPanel je=new JPanel();
@@ -204,6 +230,57 @@ public class NewWindow extends JFrame{
 		detaile.add(jdetaile,gbce);
 		je.add(detaile,BorderLayout.CENTER);
 		tab.addTab("Event", je);
+		saveE.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				try{
+					String contentName = nameea.getText();
+					String contentLocation = locationea.getText();
+					String contentDetail = detailea.getText();
+					String key = ""+year+""+month+""+day;
+					//save EventName
+					FileInputStream   inOneName=new FileInputStream(fileEventName);
+					ObjectInputStream inTwoName=new ObjectInputStream(inOneName);
+					tableEventName=(Hashtable)inTwoName.readObject();
+					inOneName.close();
+					inTwoName.close();
+					tableEventName.put(key,contentName); 
+					FileOutputStream outName=new FileOutputStream(fileEventName);
+					ObjectOutputStream objectOut=new ObjectOutputStream(outName);
+					objectOut.writeObject(tableEventName);
+					objectOut.close();
+					outName.close();
+					
+					//Save eventLocation
+					FileInputStream   inOneLocation=new FileInputStream(fileEventLocation);
+					ObjectInputStream inTwoLocation=new ObjectInputStream(inOneLocation);
+					tableEventLocation=(Hashtable)inTwoLocation.readObject();
+					inOneLocation.close();
+					inTwoLocation.close();
+					tableEventLocation.put(key,contentLocation);                                  
+					FileOutputStream outLocation=new FileOutputStream(fileEventLocation);
+					ObjectOutputStream objectOutLocation=new ObjectOutputStream(outLocation);
+					objectOutLocation.writeObject(tableEventLocation);
+					objectOutLocation.close();
+					outLocation.close();
+					
+					//Save eventDetail
+					FileInputStream   inOneDetail=new FileInputStream(fileEventContent);
+					ObjectInputStream inTwoDetail=new ObjectInputStream(inOneDetail);
+					tableEventContent=(Hashtable)inTwoDetail.readObject();
+					inOneDetail.close();
+					inTwoDetail.close();
+					tableEventContent.put(key,contentDetail);                                  
+					FileOutputStream outDetail=new FileOutputStream(fileEventContent);
+					ObjectOutputStream objectOutDetail=new ObjectOutputStream(outDetail);
+					objectOutDetail.writeObject(tableEventContent);
+					objectOutDetail.close();
+					outDetail.close();
+		        }
+		      catch(Exception ee){
+		        }
+			}
+		});
+		
 		
 		//create the reservation JPanel
 		JPanel jr=new JPanel();
@@ -314,30 +391,58 @@ public class NewWindow extends JFrame{
 		detailr.add(jdetailr,gbcr);
 		jr.add(detailr,BorderLayout.CENTER);
 		tab.addTab("Reservation", jr);
-		
 		c.add(tab,BorderLayout.CENTER);
-		
+		saveR.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try{
+					String contentName = namera.getText();
+					String contentLocation = locationra.getText();
+					String contentDetail = detailra.getText();
+					String key = ""+year+""+month+""+day;
+					//save EventName
+					FileInputStream   inOneName=new FileInputStream(fileResName);
+					ObjectInputStream inTwoName=new ObjectInputStream(inOneName);
+					tableResName=(Hashtable)inTwoName.readObject();
+					inOneName.close();
+					inTwoName.close();
+					tableResName.put(key,contentName); 
+					FileOutputStream outName=new FileOutputStream(fileResName);
+					ObjectOutputStream objectOut=new ObjectOutputStream(outName);
+					objectOut.writeObject(tableResName);
+					objectOut.close();
+					outName.close();
+					
+					//Save eventLocation
+					FileInputStream   inOneLocation=new FileInputStream(fileResLocation);
+					ObjectInputStream inTwoLocation=new ObjectInputStream(inOneLocation);
+					tableResLocation=(Hashtable)inTwoLocation.readObject();
+					inOneLocation.close();
+					inTwoLocation.close();
+					tableResLocation.put(key,contentLocation);                                  
+					FileOutputStream outLocation=new FileOutputStream(fileResLocation);
+					ObjectOutputStream objectOutLocation=new ObjectOutputStream(outLocation);
+					objectOutLocation.writeObject(tableResLocation);
+					objectOutLocation.close();
+					outLocation.close();
+					
+					//Save eventDetail
+					FileInputStream   inOneDetail=new FileInputStream(fileResContent);
+					ObjectInputStream inTwoDetail=new ObjectInputStream(inOneDetail);
+					tableResContent=(Hashtable)inTwoDetail.readObject();
+					inOneDetail.close();
+					inTwoDetail.close();
+					tableResContent.put(key,contentDetail);                                  
+					FileOutputStream outDetail=new FileOutputStream(fileResContent);
+					ObjectOutputStream objectOutDetail=new ObjectOutputStream(outDetail);
+					objectOutDetail.writeObject(tableResContent);
+					objectOutDetail.close();
+					outDetail.close();
+		        }
+		      catch(Exception ee){
+		        }
+			}
+		});
 		setVisible(true);
 	}
-//	public void SaveEvent(int year, int month, int day){
-//		try{
-//			String content = text.getText;
-//			String key = ""+year+""+month+""+day;
-//			FileInputStream   inOne=new FileInputStream(file);
-//			ObjectInputStream inTwo=new ObjectInputStream(inOne);
-//			table=(Hashtable)inTwo.readObject();
-//			inOne.close();
-//			inTwo.close();
-//			table.put(key,content);                                  
-//			FileOutputStream out=new FileOutputStream(file);
-//			ObjectOutputStream objectOut=new ObjectOutputStream(out);
-//			objectOut.writeObject(table);
-//			objectOut.close();
-//			out.close();
-//        }
-//      catch(Exception ee)
-//        {
-//        }
-//
-//	}
 }
