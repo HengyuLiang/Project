@@ -41,37 +41,34 @@ public class NewWindow extends JFrame{
 		JPanel js=new JPanel();
 		js.setLayout(new BorderLayout());
 		JButton saveS=new JButton("Save");
-////<<<<<<< HEAD
-////		saveS.addActionListener(new ActionListener(){
-////			public void actionPerformed(ActionEvent e){
-////				
-////			}
-////		});
-////		JButton deleteS=new JButton("Delete");
-////		deleteS.addActionListener(new ActionListener(){
-////			@Override
-////			public void actionPerformed(ActionEvent e) {
-////				// TODO Auto-generated method stub
-////				dispose();
-////			
-////			}
-////		});
-////=======
-////>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
-////		JButton cancelS=new JButton("Cancel");
-//		cancelS.addActionListener(new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				dispose();
-//			
-//			}
-//		});
-//		JPanel jbs=new JPanel();
-//		jbs.add(saveS,BorderLayout.EAST);
-//		jbs.add(deleteS,BorderLayout.CENTER);
-//		jbs.add(cancelS, BorderLayout.WEST);
-//		js.add(jbs,BorderLayout.SOUTH);
+		saveS.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				
+			}
+		});
+		JButton deleteS=new JButton("Delete");
+		deleteS.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			
+			}
+		});
+		JButton cancelS=new JButton("Cancel");
+		cancelS.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			
+			}
+		});
+		JPanel jbs=new JPanel();
+		jbs.add(saveS,BorderLayout.EAST);
+		jbs.add(deleteS,BorderLayout.CENTER);
+		jbs.add(cancelS, BorderLayout.WEST);
+		js.add(jbs,BorderLayout.SOUTH);
 		JPanel details=new JPanel();
 		details.setLayout(new GridBagLayout());
 		GridBagConstraints gbcs=new GridBagConstraints();
