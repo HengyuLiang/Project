@@ -194,6 +194,51 @@ public class CalendarUi extends JFrame implements ActionListener{
 		nextYear.addActionListener(this);
 		previousYear.addActionListener(this);
 		
+		for(int i=0;i<42;i++){
+			int a=i;
+			labelDay[a].addMouseListener(new MouseListener(){
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+							if(labelDay[a].getText().equals(""));
+							else{
+								if(e.getButton() == MouseEvent.BUTTON1){
+									//left button
+									NewWindow nw=new NewWindow();
+								}else if(e.getButton() == MouseEvent.BUTTON3){
+									//right button 
+									message.setText("Hello");	
+								}
+							}
+						}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
+		}
+		
 		setVisible(true);
 		
 		addWindowListener
@@ -351,5 +396,6 @@ public class CalendarUi extends JFrame implements ActionListener{
 		dialog.setVisible(true);
 		
 	}
+	
 }	  
 //need new actionListener

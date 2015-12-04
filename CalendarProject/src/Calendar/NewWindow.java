@@ -5,6 +5,9 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,6 +32,14 @@ public class NewWindow extends JFrame{
 		js.setLayout(new BorderLayout());
 		JButton saveS=new JButton("Save");
 		JButton cancelS=new JButton("Cancel");
+//		cancelS.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				
+//				((Window) c).dispose();
+//			}
+//		});
 		JPanel jbs=new JPanel();
 		jbs.add(saveS,BorderLayout.EAST);
 		jbs.add(cancelS, BorderLayout.WEST);
