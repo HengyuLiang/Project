@@ -16,6 +16,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,7 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+import java.io.*;
 
 public class CalendarUi extends JFrame implements ActionListener{
 	JLabel labelDay[] = new JLabel[42];
@@ -41,6 +42,8 @@ public class CalendarUi extends JFrame implements ActionListener{
 	JMenu File, Search;
 	JMenuItem Open,Save, Year, Month;
 	int year = 2015, month = 12;  //initial date;
+	Hashtable hashtable;  
+	File file;
 	final CalendarData calendar;
 	
 	public CalendarUi(){
@@ -196,7 +199,21 @@ public class CalendarUi extends JFrame implements ActionListener{
 		previousMonth.addActionListener(this);
 		nextYear.addActionListener(this);
 		previousYear.addActionListener(this);
-		
+		hashtable=new Hashtable();
+	    file=new File("event.txt");
+	    if(!file.exists())
+	      {
+	       try{
+	           FileOutputStream out=new FileOutputStream(file);
+	           ObjectOutputStream objectOut=new ObjectOutputStream(out);
+	           objectOut.writeObject(hashtable);
+	           objectOut.close();
+	           out.close();
+	          }
+	       catch(IOException e){
+	          }
+	      } 
+
 		for(int i=0;i<42;i++){
 			int a=i;
 			labelDay[a].addMouseListener(new MouseListener(){
@@ -205,10 +222,10 @@ public class CalendarUi extends JFrame implements ActionListener{
 				public void mouseClicked(MouseEvent e) {
 							if(labelDay[a].getText().equals(""));
 							else{
-								if(e.getButton() == MouseEvent.BUTTON1){
+								if(e.getButton() == MouseEvent.BUTTON3){
 									//left button
-									NewWindow nw=new NewWindow();
-								}else if(e.getButton() == MouseEvent.BUTTON3){
+									NewWindow nw=new NewWindow(year,month,Integer.parseInt(labelDay[a].getText()));
+								}else if(e.getButton() == MouseEvent.BUTTON1){
 									//right button 
 									message.setText("Hello");	
 								}

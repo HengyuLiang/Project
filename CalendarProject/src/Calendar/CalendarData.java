@@ -1,12 +1,17 @@
 package Calendar;
 
+import java.io.File;
 import java.util.Calendar;
+import java.util.Hashtable;
 
 public class CalendarData {
 
 	private int year;
 	private int month;
-	
+	Hashtable hashtable;             
+	public Hashtable getHashtable()
+	   {   return hashtable;
+	   }
 	public int getYear(){
 		return year;
 	}
