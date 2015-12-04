@@ -8,6 +8,12 @@ import java.awt.GridBagLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +25,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class NewWindow extends JFrame{
-	
+	File file;
+	Hashtable table;
 	
 	public NewWindow(){
 		Container c = getContentPane();
@@ -31,6 +38,11 @@ public class NewWindow extends JFrame{
 		JPanel js=new JPanel();
 		js.setLayout(new BorderLayout());
 		JButton saveS=new JButton("Save");
+		saveS.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				
+			}
+		});
 		JButton cancelS=new JButton("Cancel");
 		cancelS.addActionListener(new ActionListener(){
 			@Override
@@ -79,6 +91,14 @@ public class NewWindow extends JFrame{
 		je.setLayout(new BorderLayout());
 		JButton saveE=new JButton("Save");
 		JButton cancelE=new JButton("Cancel");
+		cancelE.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			
+			}
+		});
 		JPanel jbe=new JPanel();
 		jbe.add(saveE,BorderLayout.EAST);
 		jbe.add(cancelE, BorderLayout.WEST);
@@ -179,6 +199,14 @@ public class NewWindow extends JFrame{
 		jr.setLayout(new BorderLayout());
 		JButton saveR=new JButton("Save");
 		JButton cancelR=new JButton("Cancel");
+		cancelR.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			
+			}
+		});
 		JPanel jbr=new JPanel();
 		jbr.add(saveR,BorderLayout.EAST);
 		jbr.add(cancelR, BorderLayout.WEST);
@@ -278,5 +306,25 @@ public class NewWindow extends JFrame{
 		
 		setVisible(true);
 	}
-	
+//	public void SaveEvent(int year, int month, int day){
+//		try{
+//			String content = text.getText;
+//			String key = ""+year+""+month+""+day;
+//			FileInputStream   inOne=new FileInputStream(file);
+//			ObjectInputStream inTwo=new ObjectInputStream(inOne);
+//			table=(Hashtable)inTwo.readObject();
+//			inOne.close();
+//			inTwo.close();
+//			table.put(key,content);                                  
+//			FileOutputStream out=new FileOutputStream(file);
+//			ObjectOutputStream objectOut=new ObjectOutputStream(out);
+//			objectOut.writeObject(table);
+//			objectOut.close();
+//			out.close();
+//        }
+//      catch(Exception ee)
+//        {
+//        }
+//
+//	}
 }
