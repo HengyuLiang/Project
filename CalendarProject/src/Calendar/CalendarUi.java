@@ -14,6 +14,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -26,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 
 public class CalendarUi extends JFrame implements ActionListener{
 	JLabel labelDay[] = new JLabel[42];
@@ -362,7 +365,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				dialog.setVisible(false);
 				dialog.dispose();
 			}
 		});
@@ -396,6 +399,26 @@ public class CalendarUi extends JFrame implements ActionListener{
 		
 		dialog.setVisible(true);
 		
+
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/YYYY");
+		add.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				try{
+
+				Event event = new Event(eventname.getText(),eventlocation.getText(),
+						eventdiscription.getText(),
+						format.parse(eventdate.getText()),
+						starttime.getText(),endtime.getText());
+
+				} catch(Exception e) {
+					System.out.println(e.getMessage());
+				}
+				dialog.setVisible(false);
+				dialog.dispose();
+			}
+		});
+		
+		dialog.setVisible(true);
 	}
 	
 }	  
