@@ -6,6 +6,6 @@ public class CalendarTest{
 	public static void main(String[] a){
 		
 		CalendarUi cui=new CalendarUi();
-//		NewWindow nw=new NewWindow();
+		
 	}
 }

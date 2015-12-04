@@ -32,14 +32,6 @@ public class NewWindow extends JFrame{
 		js.setLayout(new BorderLayout());
 		JButton saveS=new JButton("Save");
 		JButton cancelS=new JButton("Cancel");
-//		cancelS.addActionListener(new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				
-//				((Window) c).dispose();
-//			}
-//		});
 		JPanel jbs=new JPanel();
 		jbs.add(saveS,BorderLayout.EAST);
 		jbs.add(cancelS, BorderLayout.WEST);
@@ -70,7 +62,6 @@ public class NewWindow extends JFrame{
 		namesa.setFont(new Font("Arial",1,20));
 		details.add(jnames,gbcs);
 		js.add(details,BorderLayout.CENTER);
-		
 		tab.addTab("SpecialDay", js);
 		
 		

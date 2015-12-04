@@ -113,6 +113,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 			if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
 				
 				labelDay[i].setForeground(Color.blue);
+				Reminder r=new Reminder();
 			}else{
 				labelDay[i].setForeground(Color.BLACK);
 			}
@@ -131,46 +132,46 @@ public class CalendarUi extends JFrame implements ActionListener{
 		c.add(JCenter, BorderLayout.CENTER);
 		
 		//create message label: show message and save the content of event.
-		JPanel JSouth=new JPanel();
-		JSouth.setLayout(new GridBagLayout());
-		GridBagConstraints gbcs=new GridBagConstraints();
-		gbcs.fill=GridBagConstraints.BOTH;
-		gbcs.gridx=0;
-		gbcs.gridy=0;
-		gbcs.gridwidth=12;
-		gbcs.gridheight=10;
-		gbcs.weightx=1;
-		gbcs.weighty=1;
-		message=new JTextArea();
-		JScrollPane jnote=new JScrollPane(message);
-		message.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
-		message.setLineWrap(true); 
-		message.setWrapStyleWord(true);
-		message.setFont(new Font("Arial",1,20));
-		message.setEnabled(false);
-		JSouth.add(jnote,gbcs);
-		gbcs.gridx=12;
-		gbcs.gridy=0;
-		gbcs.gridwidth=2;
-		gbcs.gridheight=5;
-		gbcs.weightx=0;
-		gbcs.weighty=0; 
-		event=new JButton(" EVENT ");
-		event.addActionListener(new ActionListener(){
-		public void actionPerformed(ActionEvent ae){
-			setUpCalendarEvent(CalendarUi.this, calendar);
-		}
-	});
-		JSouth.add(event,gbcs);
-		gbcs.gridx=12;
-		gbcs.gridy=5;
-		gbcs.gridwidth=2;
-		gbcs.gridheight=5;
-		gbcs.weightx=0;
-		gbcs.weighty=0;
-		delete=new JButton("DELETE");
-		JSouth.add(delete,gbcs);
-		c.add(JSouth,BorderLayout.SOUTH);
+//		JPanel JSouth=new JPanel();
+//		JSouth.setLayout(new GridBagLayout());
+//		GridBagConstraints gbcs=new GridBagConstraints();
+//		gbcs.fill=GridBagConstraints.BOTH;
+//		gbcs.gridx=0;
+//		gbcs.gridy=0;
+//		gbcs.gridwidth=12;
+//		gbcs.gridheight=10;
+//		gbcs.weightx=1;
+//		gbcs.weighty=1;
+//		message=new JTextArea();
+//		JScrollPane jnote=new JScrollPane(message);
+//		message.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+//		message.setLineWrap(true); 
+//		message.setWrapStyleWord(true);
+//		message.setFont(new Font("Arial",1,20));
+//		message.setEnabled(false);
+//		JSouth.add(jnote,gbcs);
+//		gbcs.gridx=12;
+//		gbcs.gridy=0;
+//		gbcs.gridwidth=2;
+//		gbcs.gridheight=5;
+//		gbcs.weightx=0;
+//		gbcs.weighty=0; 
+//		event=new JButton(" EVENT ");
+//		event.addActionListener(new ActionListener(){
+//		public void actionPerformed(ActionEvent ae){
+//			setUpCalendarEvent(CalendarUi.this, calendar);
+//		}
+//	});
+//		JSouth.add(event,gbcs);
+//		gbcs.gridx=12;
+//		gbcs.gridy=5;
+//		gbcs.gridwidth=2;
+//		gbcs.gridheight=5;
+//		gbcs.weightx=0;
+//		gbcs.weighty=0;
+//		delete=new JButton("DELETE");
+//		JSouth.add(delete,gbcs);
+//		c.add(JSouth,BorderLayout.SOUTH);
 		
 		//create the menu
 		jmb = new JMenuBar();
