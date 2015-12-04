@@ -18,17 +18,23 @@ public class Reminder extends JFrame{
 		c.setLayout(new BorderLayout());
 		setSize(400,300);
 		setLocation(800, 300);
+		
+		//add a label
 		JLabel reminder=new JLabel("Today, you have a reminder!");
 		c.add(reminder, BorderLayout.NORTH);
+		
+		//add a text area
 		JTextArea detail=new JTextArea();
 		JScrollPane jdetail=new JScrollPane(detail);
 		detail.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
-		detail.setText("Hello!");
+		detail.setText("Hello!");//set the containing of the reminder
 		detail.setLineWrap(true); 
 		detail.setWrapStyleWord(true);
 		detail.setFont(new Font("Arial",1,20));
 		detail.setEnabled(false);
 		c.add(jdetail, BorderLayout.CENTER);
+		
+		//add a cancel button
 		JButton cancel=new JButton("CANCEL");
 		cancel.addActionListener(new ActionListener(){
 			@Override
@@ -39,6 +45,7 @@ public class Reminder extends JFrame{
 			}
 		});
 		c.add(cancel, BorderLayout.SOUTH);
+		
 		
 		setVisible(true);
 		

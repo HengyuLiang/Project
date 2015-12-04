@@ -43,6 +43,15 @@ public class NewWindow extends JFrame{
 				
 			}
 		});
+		JButton deleteS=new JButton("Delete");
+		deleteS.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			
+			}
+		});
 		JButton cancelS=new JButton("Cancel");
 		cancelS.addActionListener(new ActionListener(){
 			@Override
@@ -54,6 +63,7 @@ public class NewWindow extends JFrame{
 		});
 		JPanel jbs=new JPanel();
 		jbs.add(saveS,BorderLayout.EAST);
+		jbs.add(deleteS,BorderLayout.CENTER);
 		jbs.add(cancelS, BorderLayout.WEST);
 		js.add(jbs,BorderLayout.SOUTH);
 		JPanel details=new JPanel();
@@ -98,8 +108,10 @@ public class NewWindow extends JFrame{
 			
 			}
 		});
+		JButton deleteE=new JButton("Delete");
 		JPanel jbe=new JPanel();
 		jbe.add(saveE,BorderLayout.EAST);
+		jbe.add(deleteE, BorderLayout.CENTER);
 		jbe.add(cancelE, BorderLayout.WEST);
 		je.add(jbe,BorderLayout.SOUTH);
 		JPanel detaile=new JPanel();
@@ -206,8 +218,10 @@ public class NewWindow extends JFrame{
 			
 			}
 		});
+		JButton deleteR=new JButton("Delete");
 		JPanel jbr=new JPanel();
 		jbr.add(saveR,BorderLayout.EAST);
+		jbr.add(deleteR, BorderLayout.CENTER);
 		jbr.add(cancelR, BorderLayout.WEST);
 		jr.add(jbr,BorderLayout.SOUTH);
 		JPanel detailr=new JPanel();
