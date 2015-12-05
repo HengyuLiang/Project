@@ -103,6 +103,7 @@ public class CalendarData {
 			;
 			JSONParser parser=new JSONParser(Source.sourceFor("calendarData", new File(fileName)),new ErrorManager());
 			Node node=parser.parse();
+			//read node for events and reservations
 			//node.e
 		}catch (Exception e){
 			throw new RuntimeException("Unable to load file:",e);
