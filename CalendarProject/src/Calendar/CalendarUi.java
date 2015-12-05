@@ -225,7 +225,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 							else{
 								if(e.getButton() == MouseEvent.BUTTON3){
 									//left button
-									NewWindow nw=new NewWindow(year,month,Integer.parseInt(labelDay[a].getText()));
+									NewWindow nw=new NewWindow(year,month,Integer.parseInt(labelDay[a].getText()),calendar);
 								}else if(e.getButton() == MouseEvent.BUTTON1){
 									//right button 
 									message.setText("Hello");	
