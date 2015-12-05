@@ -18,7 +18,7 @@ public class CalendarData {
 	private int month;
 	private Collection<Event> events=new ArrayList();
 	private Collection<Reservation> reservations = new ArrayList();
-	private String calendarEventsFileName="";
+	private String calendarEventsFileName="default-calendar-data.json";
  	public static final SimpleDateFormat DATE_FORMATER =  new SimpleDateFormat("MM/dd/yyyy");
 	public int getYear(){
 		return year;
@@ -100,7 +100,7 @@ public class CalendarData {
 	public void openCalendarEvents(String fileName){
 		calendarEventsFileName=fileName;
 		try {
-			;
+			//
 			JSONParser parser=new JSONParser(Source.sourceFor("calendarData", new File(fileName)),new ErrorManager());
 			Node node=parser.parse();
 			//read node for events and reservations
