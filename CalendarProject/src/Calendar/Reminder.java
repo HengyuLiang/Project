@@ -13,7 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class Reminder extends JFrame{
-	public Reminder(){
+	private String s;
+	public Reminder(String s){
+		this.s=s;
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
 		setSize(400,300);
@@ -27,7 +29,7 @@ public class Reminder extends JFrame{
 		JTextArea detail=new JTextArea();
 		JScrollPane jdetail=new JScrollPane(detail);
 		detail.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
-		detail.setText("Hello!");//set the containing of the reminder
+		detail.setText(s);//set the containing of the reminder
 		detail.setLineWrap(true); 
 		detail.setWrapStyleWord(true);
 		detail.setFont(new Font("Arial",1,20));

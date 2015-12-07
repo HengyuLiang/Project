@@ -119,7 +119,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 			if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
 				
 				labelDay[i].setForeground(Color.blue);
-				Reminder r=new Reminder();
+				Reminder r=new Reminder("Today, ");
 			}else{
 				labelDay[i].setForeground(Color.BLACK);
 			}
@@ -228,7 +228,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 									NewWindow nw=new NewWindow(year,month,Integer.parseInt(labelDay[a].getText()));
 								}else if(e.getButton() == MouseEvent.BUTTON1){
 									//right button 
-									message.setText("Hello");	
+//									message.setText("Hello");	
 								}
 							}
 						}
