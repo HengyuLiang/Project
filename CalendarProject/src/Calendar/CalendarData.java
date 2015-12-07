@@ -1,17 +1,25 @@
 package Calendar;
 
+import jdk.nashorn.internal.ir.Node;
+import jdk.nashorn.internal.parser.JSONParser;
+import jdk.nashorn.internal.runtime.ErrorManager;
+import jdk.nashorn.internal.runtime.Source;
+
 import java.io.File;
-import java.util.Calendar;
-import java.util.Hashtable;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class CalendarData {
 
 	private int year;
 	private int month;
-	Hashtable hashtable;             
-	public Hashtable getHashtable()
-	   {   return hashtable;
-	   }
+	private Collection<Event> events=new ArrayList();
+	private Collection<Reservation> reservations = new ArrayList();
+	private String calendarEventsFileName="default-calendar-data.json";
+ 	public static final SimpleDateFormat DATE_FORMATER =  new SimpleDateFormat("MM/dd/yyyy");
 	public int getYear(){
 		return year;
 	}
@@ -56,13 +64,93 @@ public class CalendarData {
 		c.set(year, month-1,1);
 		int week=c.get(Calendar.DAY_OF_WEEK)-1;
 		int noOfDaysInMonth=c.getActualMaximum(Calendar.DAY_OF_MONTH);
-		
+		List<Integer> eventDays=new ArrayList();
+		List<Integer> reservatoinDays=new ArrayList();
+		for(Event event: events){
+			Calendar cal=Calendar.getInstance();
+			cal.setTime(event.getEventDate());
+			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
+				eventDays.add(cal.get(Calendar.DAY_OF_MONTH));
+			}
+		}
+		for(Reservation event: reservations){
+			Calendar cal=Calendar.getInstance();
+			cal.setTime(event.getResourceDate());
+			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
+				reservatoinDays.add(cal.get(Calendar.DAY_OF_MONTH));
+			}
+		}
 		int n=1;
 		for(int i=week;i<week+noOfDaysInMonth;i++){
-			temp[i]=String.valueOf(n++);
+			temp[i]=String.valueOf(n)+(eventDays.contains(n)?"*":"")+(reservatoinDays.contains(n)?"#":"");
+			n++;
 		}
 		return temp;
 	
+	}
+
+	public void addEventAndSave(Event event){
+		this.events.add(event);
+		saveCalendarEvents(calendarEventsFileName);
+	}
+	public void addReservationAndSave(Reservation reservation){
+		this.reservations.add(reservation);
+		saveCalendarEvents(calendarEventsFileName);
+	}
+	public void openCalendarEvents(String fileName){
+		calendarEventsFileName=fileName;
+		try {
+			//
+			JSONParser parser=new JSONParser(Source.sourceFor("calendarData", new File(fileName)),new ErrorManager());
+			Node node=parser.parse();
+			//read node for events and reservations
+			//node.e
+		}catch (Exception e){
+			throw new RuntimeException("Unable to load file:",e);
+		}
+	}
+
+	public void saveCalendarEvents(String fileName){
+		try {
+			PrintWriter printWriter = new PrintWriter(new FileOutputStream(fileName));
+			printWriter.println("{");
+			printWriter.print("\"Events\":[");
+			StringBuilder builder=new StringBuilder();
+			for(Event e: events){
+				builder.append("\n");
+				builder.append("{");
+				builder.append(getPair("name",e.getEventName())).append(",");
+				builder.append(getPair("description",e.getEventDiscription())).append(",");
+				builder.append(getPair("date",DATE_FORMATER.format(e.getEventDate()))).append(",");
+				builder.append(getPair("startTime",e.getStartTime())).append(",");
+				builder.append(getPair("endTime",e.getEndTime()));
+				builder.append("},");
+			}
+			printWriter.println(builder.toString().substring(0,builder.toString().length()-1));
+			printWriter.println("];");
+			printWriter.print("\"Reservations\":[");
+			StringBuilder builder2=new StringBuilder();
+			for(Reservation e: reservations){
+				builder2.append("\n");
+				builder2.append("{");
+				builder2.append(getPair("name",e.getReservationName())).append(",");
+				builder2.append(getPair("resourceType",e.getReservationResourcetype())).append(",");
+				builder2.append(getPair("location",e.getResourceLocation())).append(",");
+				builder2.append(getPair("date",DATE_FORMATER.format(e.getResourceDate()))).append(",");
+				builder2.append("},");
+			}
+			printWriter.println(builder2.toString().substring(0,builder2.toString().length()-1));
+			printWriter.println("];");
+			printWriter.flush();
+			printWriter.close();
+		}catch(FileNotFoundException fnfe){
+			throw new RuntimeException("Unable to save the events/reservations into file");
+		}
+
+	}
+
+	private String getPair(String name, String value){
+		return ""+"\""+name+"\":\""+value+"\"";
 	}
 	
 }

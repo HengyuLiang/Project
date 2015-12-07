@@ -28,10 +28,12 @@ public class NewWindow extends JFrame{
 	File fileHoliday,fileEventName,fileEventLocation,fileEventContent,fileResName,fileResLocation,fileResContent;
 	Hashtable tableHoliday,tableEventName,tableEventLocation,tableEventContent,tableResName,tableResLocation,tableResContent;
 	int year,month,day;
-	public NewWindow(int year, int month, int day){
+	private final CalendarData calendarData;
+	public NewWindow(int year, int month, int day,CalendarData calendarData){
 		this.year = year;
 		this.month = month;
 		this.day = day;
+		this.calendarData=calendarData;
 		Container c = getContentPane();
 		setSize(400,300);
 		setLocation(800, 0);
