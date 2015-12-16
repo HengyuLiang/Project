@@ -53,7 +53,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		month = Calendar.getInstance().get(Calendar.MONTH)+1;
 		calendar.setYear(year);
 		calendar.setMonth(month);  //set initial data;
-//		calendar.openCalendarEvents();
+		calendar.openCalendarEvents();
 		//create the operation panel;
 		JPanel JNorth = new JPanel();
 		JNorth.setLayout(new GridBagLayout());
@@ -116,13 +116,14 @@ public class CalendarUi extends JFrame implements ActionListener{
 		String day[]=calendar.getDate();
 		for(int i=0;i<42;i++){
 			labelDay[i].setText(day[i]);
-			if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
+			String text=day[i]==null?"-":day[i];
+			if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth() && text.contains(""+calendar.getToday())){
 				
 				labelDay[i].setForeground(new Color(0,255,0));
 				String s= ""+calendar.getToyear()+""+calendar.getTomonth()+""+calendar.getToday();
 				//File f = new File("/Users/hengyuliang/Desktop/"+s+"Reseravtion.txt");
 				//if(f.exists()){
-				Reminder r=new Reminder("Today, ",calendar.getToyear(),calendar.getTomonth(),calendar.getToday());
+				Reminder r=new Reminder("Today, ",calendar.getToyear(),calendar.getTomonth(),calendar.getToday(),calendar);
 				//}
 			}else{
 				labelDay[i].setForeground(Color.BLACK);
@@ -140,65 +141,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		JCenter.add(JNorth,BorderLayout.NORTH);
 		JCenter.add(jpcenter,BorderLayout.CENTER);
 		c.add(JCenter, BorderLayout.CENTER);
-		
-		//create message label: show message and save the content of event.
-//		JPanel JSouth=new JPanel();
-//		JSouth.setLayout(new GridBagLayout());
-//		GridBagConstraints gbcs=new GridBagConstraints();
-//		gbcs.fill=GridBagConstraints.BOTH;
-//		gbcs.gridx=0;
-//		gbcs.gridy=0;
-//		gbcs.gridwidth=12;
-//		gbcs.gridheight=10;
-//		gbcs.weightx=1;
-//		gbcs.weighty=1;
-//		message=new JTextArea();
-//		JScrollPane jnote=new JScrollPane(message);
-//		message.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
-//		message.setLineWrap(true); 
-//		message.setWrapStyleWord(true);
-//		message.setFont(new Font("Arial",1,20));
-//		message.setEnabled(false);
-//		JSouth.add(jnote,gbcs);
-//		gbcs.gridx=12;
-//		gbcs.gridy=0;
-//		gbcs.gridwidth=2;
-//		gbcs.gridheight=5;
-//		gbcs.weightx=0;
-//		gbcs.weighty=0; 
-//		event=new JButton(" EVENT ");
-//		event.addActionListener(new ActionListener(){
-//		public void actionPerformed(ActionEvent ae){
-//			setUpCalendarEvent(CalendarUi.this, calendar);
-//		}
-//	});
-//		JSouth.add(event,gbcs);
-//		gbcs.gridx=12;
-//		gbcs.gridy=5;
-//		gbcs.gridwidth=2;
-//		gbcs.gridheight=5;
-//		gbcs.weightx=0;
-//		gbcs.weighty=0;
-//		delete=new JButton("DELETE");
-//		JSouth.add(delete,gbcs);
-//		c.add(JSouth,BorderLayout.SOUTH);
-		
-		//create the menu
-//		jmb = new JMenuBar();
-//		File = new JMenu("File");
-//		Open = new JMenuItem("Open");
-//		Save = new JMenuItem("Save");
-//		File.add(Open);
-//		File.add(Save);
-//		Search = new JMenu("Search");
-//		Year = new JMenuItem("Year");
-//		Month = new JMenuItem("Month");
-//		Search.add(Year);
-//		Search.add(Month);
-//		jmb.add(File);
-//		jmb.add(Search);
-//		c.add(jmb,BorderLayout.NORTH);
-		
+
 		//add ActionListener 
 		nextMonth.addActionListener(this);
 		previousMonth.addActionListener(this);
@@ -359,58 +302,6 @@ public class CalendarUi extends JFrame implements ActionListener{
 			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}
 	}
-	
-//	private void setUpCalendarEvent(final JFrame jFrame, final CalendarData calData){
-//		JDialog dialog=new JDialog(jFrame,"Create Event",true);
-//		dialog.setSize(300, 200);
-//		dialog.setBounds(jFrame.getWidth() - 300, jFrame.getHeight() - 200, 300, 200);
-//		dialog.setLayout(new BorderLayout());
-//		JPanel buttonPanel = new JPanel(new FlowLayout());
-//		JButton add = new JButton("Add");
-//		JButton cancel = new JButton("Cancel");
-//		cancel.addActionListener(new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				dialog.setVisible(false);
-//				dialog.dispose();
-//			}
-//		});
-//		buttonPanel.add(add);
-//		buttonPanel.add(cancel);
-//		dialog.add(buttonPanel,BorderLayout.SOUTH);
-//		JPanel detailspanel = new JPanel(new GridLayout(6,2));
-//		JTextField eventname = new JTextField(20);
-//		JTextField eventlocation = new JTextField(20);
-//		JTextField eventdiscription = new JTextField(20);
-//		JTextField eventdate = new JTextField(20);
-//		JTextField starttime = new JTextField(20);
-//		JTextField endtime = new JTextField(20);
-//		detailspanel.add(new JLabel("Event Name:"));
-//		detailspanel.add (eventname);
-//		detailspanel.add(new JLabel("Event Location:"));
-//		detailspanel.add (eventlocation);
-//
-//		detailspanel.add(new JLabel("Event Discription"));
-//		detailspanel.add (eventdiscription);
-//
-//		detailspanel.add(new JLabel("Event Date:"));
-//		detailspanel.add (eventdate);
-//
-//		detailspanel.add(new JLabel("Start Time:"));
-//		detailspanel.add (starttime);
-//		
-//		detailspanel.add(new JLabel("End Time:"));
-//		detailspanel.add (endtime);
-//		dialog.add(detailspanel,BorderLayout.CENTER);
-//		
-//		dialog.setVisible(true);
-//		
-//
-//
-//		
-//		dialog.setVisible(true);
-//	}
 	
 }	  
 //need new actionListener

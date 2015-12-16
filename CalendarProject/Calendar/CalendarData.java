@@ -5,6 +5,7 @@ package Calendar;
 //import org.json.simple.parser.JSONParser;
 
 import com.google.gson.Gson;
+import com.google.gson.internal.bind.CollectionTypeAdapterFactory;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -47,10 +48,8 @@ public class CalendarData {
 	public int getToday(){
 		Calendar c1=Calendar.getInstance();
 
-		Calendar c2=Calendar.getInstance();
-		c2.set(year, month-1,1);
-		
-		return c1.get(Calendar.DAY_OF_MONTH)+c2.get(Calendar.DAY_OF_WEEK)-2; 
+
+		return c1.get(Calendar.DAY_OF_MONTH);
 				
 	}
 	
@@ -59,42 +58,48 @@ public class CalendarData {
 		Calendar c=Calendar.getInstance();
 		c.set(year, month-1,1);
 		int week=c.get(Calendar.DAY_OF_WEEK)-1;
-		int day=0;
-		if(month==1||month==3||month==5||month==7||month==8||month==10||month==12){ 
-			day=31;}               
-	    if(month==4||month==6||month==9||month==11){   
-	    	day=30;}             
-	    if(month==2){   
-	    	if(((year%4==0)&&(year%100!=0))||(year%400==0)){   
-	    		day=29;
-	    		}else{   
-	                   day=28;}   
-	            }    
-	    for(int i=week,n=1;i<week+day;i++){   
-	    	temp[i]=String.valueOf(n) ;   
-	    	n++;}              
-//		int noOfDaysInMonth=c.getActualMaximum(Calendar.DAY_OF_MONTH);
-//		List<Integer> eventDays=new ArrayList();
-//		List<Integer> reservatoinDays=new ArrayList();
-//		for(Event event: events){
-//			Calendar cal=Calendar.getInstance();
-//			cal.setTime(event.getEventDate());
-//			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
-//				eventDays.add(cal.get(Calendar.DAY_OF_MONTH));
-//			}
-//		}
-//		for(Reservation event: reservations){
-//			Calendar cal=Calendar.getInstance();
-////			cal.setTime(event.getResourceDate());
-//			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
-//				reservatoinDays.add(cal.get(Calendar.DAY_OF_MONTH));
-//			}
-//		}
-//		int n=1;
-//		for(int i=week;i<week+noOfDaysInMonth;i++){
-//			temp[i]=String.valueOf(n)+(eventDays.contains(n)?"*":"")+(reservatoinDays.contains(n)?"#":"");
-//			n++;
-//		}
+
+		int noOfDaysInMonth=c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		List<Integer> eventDays=new ArrayList();
+		List<Integer> reservatoinDays=new ArrayList();
+		List<Integer> holidays=new ArrayList();
+		for(Event event: calendarDetails.events.values()){
+			Calendar cal=Calendar.getInstance();
+			cal.setTime(event.getEventDate());
+			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
+				eventDays.add(cal.get(Calendar.DAY_OF_MONTH));
+			}
+		}
+		for(Reservation event: calendarDetails.reservations.values()){
+			Calendar cal=Calendar.getInstance();
+			cal.setTime(event.getReservationDate());
+			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
+				reservatoinDays.add(cal.get(Calendar.DAY_OF_MONTH));
+			}
+		}
+
+		for(Holiday event: calendarDetails.holidays.values()){
+			Calendar cal=Calendar.getInstance();
+			cal.setTime(event.getHolidayDate());
+			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
+				holidays.add(cal.get(Calendar.DAY_OF_MONTH));
+			}
+		}
+
+		int n=1;
+		for(int i=week;i<week+noOfDaysInMonth;i++){
+			temp[i]=String.valueOf(n);
+			if(eventDays.contains(n)){
+				temp[i]+="*";
+			}
+			if(reservatoinDays.contains(n)){
+				temp[i]+="#";
+			}
+			if(holidays.contains(n)){
+				temp[i]+="h";
+			}
+			n++;
+		}
 		
 		return temp;
 	
@@ -133,6 +138,10 @@ public class CalendarData {
 		}catch (Exception e){
 			throw new RuntimeException("Unable to load file:"+e);
 		}
+	}
+
+	public CalendarDetails getCalendarDetails(){
+		return calendarDetails;
 	}
 //
 //	public void openCalendarEvents(String fileName){
@@ -286,6 +295,34 @@ public class CalendarData {
 		}
 		public void deleteReservation(Reservation reservation){
 			reservations.remove(reservation.getId());
+		}
+
+		public Collection<Event> getEventFor(Date date){
+			Collection<Event> items=new ArrayList<>();
+			for(Event e: this.events.values()){
+				if(e.getEventDate().compareTo(date)==0){
+					items.add(e);
+				}
+			}
+			return items;
+		}
+		public Collection<Reservation> getReservationFor(Date date){
+			Collection<Reservation> items=new ArrayList<>();
+			for(Reservation e: this.reservations.values()){
+				if(e.getReservationDate().compareTo(date)==0){
+					items.add(e);
+				}
+			}
+			return items;
+		}
+		public Collection<Holiday> getHolidayFor(Date date){
+			Collection<Holiday> items=new ArrayList<>();
+			for(Holiday e: this.holidays.values()){
+				if(e.getHolidayDate().compareTo(date)==0){
+					items.add(e);
+				}
+			}
+			return items;
 		}
 	}
 

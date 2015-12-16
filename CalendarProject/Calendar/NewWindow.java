@@ -100,44 +100,28 @@ public class NewWindow extends JFrame{
 		eventName.setLineWrap(true); 
 		eventName.setWrapStyleWord(true);
 		eventName.setFont(new Font("Arial",1,20));
-		try {
-			Event e;
-			e=Event.readFromFile(""+year+""+month+""+day);
-			eventName.setText(e.getEventName());
-		} catch (Exception e1) {} 
+
 		JTextArea eventDetails= new JTextArea();
 		JScrollPane jeventDetails=new JScrollPane(eventDetails);
 		eventDetails.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
 		eventDetails.setLineWrap(true); 
 		eventDetails.setWrapStyleWord(true);
 		eventDetails.setFont(new Font("Arial",1,20));
-		try {
-			Event e;
-			e=Event.readFromFile(""+year+""+month+""+day);
-			eventDetails.setText(e.getEventDiscription());
-		} catch (Exception e1) {} 
+
 		JTextArea eventLocation= new JTextArea();
 		JScrollPane jeventLocation=new JScrollPane(eventLocation);
 		eventLocation.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
 		eventLocation.setLineWrap(true); 
 		eventLocation.setWrapStyleWord(true);
 		eventLocation.setFont(new Font("Arial",1,20));
-		try {
-			Event e;
-			e=Event.readFromFile(""+year+""+month+""+day);
-			eventLocation.setText(e.getLocation());
-		} catch (Exception e1) {} 
+
 		JTextArea eventStartTime= new JTextArea();
 		JScrollPane jeventStartTime=new JScrollPane(eventStartTime);
 		eventStartTime.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
 		eventStartTime.setLineWrap(true); 
 		eventStartTime.setWrapStyleWord(true);
 		eventStartTime.setFont(new Font("Arial",1,20));
-		try {
-			Event e;
-			e=Event.readFromFile(""+year+""+month+""+day);
-			eventStartTime.setText(e.getStartTime());
-		} catch (Exception e1) {} 
+
 		detaile.add(new JLabel("Event Name:")); 
 		detaile.add(jeventName);
 		detaile.add(new JLabel("Event Description:")); 
@@ -192,44 +176,28 @@ public class NewWindow extends JFrame{
         resourceLocation.setLineWrap(true); 
         resourceLocation.setWrapStyleWord(true);
         resourceLocation.setFont(new Font("Arial",1,20));
-		try {
-			Reservation rv;
-			rv=Reservation.readFromFile(""+year+""+month+""+day);
-			resourceLocation.setText(rv.getReservationName());
-		} catch (Exception e1) {} 
+
         JTextArea rStartTime= new JTextArea();
         JScrollPane jrStartTime=new JScrollPane(rStartTime);
         rStartTime.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
         rStartTime.setLineWrap(true); 
         rStartTime.setWrapStyleWord(true);
         rStartTime.setFont(new Font("Arial",1,20));
-		try {
-			Reservation rv;
-			rv=Reservation.readFromFile(""+year+""+month+""+day);
-			rStartTime.setText(rv.getStartTime());
-		} catch (Exception e1) {} 
+
         JTextArea rName= new JTextArea();
         JScrollPane jrName=new JScrollPane(rName);
         rName.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
         rName.setLineWrap(true); 
         rName.setWrapStyleWord(true);
         rName.setFont(new Font("Arial",1,20));
-		try {
-			Reservation rv;
-			rv=Reservation.readFromFile(""+year+""+month+""+day);
-			rName.setText(rv.getReservationName());
-		} catch (Exception e1) {} 
+
         JTextArea rDetails= new JTextArea();
         JScrollPane jrDetails=new JScrollPane(rDetails);
         rDetails.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
         rDetails.setLineWrap(true); 
         rDetails.setWrapStyleWord(true);
         rDetails.setFont(new Font("Arial",1,20));
-		try {
-			Reservation rv;
-			rv=Reservation.readFromFile(""+year+""+month+""+day);
-			rDetails.setText(rv.getReservationDiscription());
-		} catch (Exception e1) {} 
+
         detailr.add(new JLabel("Name:")); 
         detailr.add(jrName);
         detailr.add(new JLabel("Resource Location:")); 

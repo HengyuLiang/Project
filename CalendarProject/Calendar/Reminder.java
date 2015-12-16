@@ -5,6 +5,9 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,11 +18,13 @@ import javax.swing.JTextArea;
 public class Reminder extends JFrame{
 	private String s;
 	private int day,month,year;
-	public Reminder(String s,int year,int month,int day){
+	private CalendarData calendarData;
+	public Reminder(String s,int year,int month,int day, CalendarData calendarData){
 		this.day = day;
 		this.month = month;
 		this.year = year;
 		this.s=s;
+		this.calendarData=calendarData;
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
 		setSize(400,300);
@@ -33,10 +38,24 @@ public class Reminder extends JFrame{
 		JTextArea detail=new JTextArea();
 		JScrollPane jdetail=new JScrollPane(detail);
 		detail.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+		boolean display=false;
 		try{
-			Reservation rv;
-			rv = Reservation.readFromFile(""+year+""+month+""+day);
-			detail.setText("Reservation Name is:"+rv.getReservationName()+" in "+rv.getLocation()+" at "+rv.getStartTime());
+			Date d=new SimpleDateFormat("yyyyMMdd").parse(""+year+""+month+""+day);
+			Collection<Event> events=calendarData.getCalendarDetails().getEventFor(d);
+			Collection<Reservation> reservations=calendarData.getCalendarDetails().getReservationFor(d);
+			Collection<Holiday> holidays=calendarData.getCalendarDetails().getHolidayFor(d);
+			if(events.size()>0 || reservations.size() >0 || holidays.size() >0){
+				for(Event event: events){
+					detail.append("Event :"+ event.getEventName()+":"+event.getLocation()+"\n");
+				}
+				for(Reservation reservation: reservations){
+					detail.append("Reservation:"+reservation.getReservationName()+":"+reservation.getReservationDiscription()+"\n");
+				}
+				for(Holiday holiday: holidays){
+					detail.append("Holiday:"+holiday.getName()+"\n");
+				}
+				display=true;
+			}
 		}catch(Exception e1){
 			
 		}
@@ -59,10 +78,9 @@ public class Reminder extends JFrame{
 		});
 		c.add(cancel, BorderLayout.SOUTH);
 		
-		
-		setVisible(true);
-		
-		
+		if(display) {
+			setVisible(true);
+		}
 		
 	}
 	
