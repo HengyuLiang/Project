@@ -41,10 +41,6 @@ public class Event {
 	public String getEndTime() {
 		return endTime;
 	}
-<<<<<<< HEAD
-	public void setEventId(String eventId) {
-		this.eventId = eventId;
-	}
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
@@ -83,7 +79,6 @@ public class Event {
         }
         reader.close();// 关闭输入流，释放连接
     }
-=======
 
 	public String getLocation() {
 		return location;
@@ -99,5 +94,4 @@ public class Event {
 				", endTime='" + endTime + '\'' +
 				'}';
 	}
->>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
 }

@@ -3,7 +3,6 @@ package Calendar;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,10 +11,8 @@ import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
-=======
 import java.text.SimpleDateFormat;
 import java.util.Date;
->>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -93,37 +90,34 @@ public class NewWindow extends JFrame{
 		namesa.setFont(new Font("Arial",1,20));
 		details.add(jnames,gbcs);
 		js.add(details,BorderLayout.CENTER);
-<<<<<<< HEAD
 		tab.addTab("SpecialDay", js);
 		saveS.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				try{
 					String content = namesa.getText();
 					String key = ""+year+""+month+""+day;
-					FileInputStream   inOne=new FileInputStream(fileHoliday);
-					ObjectInputStream inTwo=new ObjectInputStream(inOne);
-					tableHoliday=(Hashtable)inTwo.readObject();
-					inOne.close();
-					inTwo.close();
-					tableHoliday.put(key,content);                                  
-					FileOutputStream out=new FileOutputStream(fileHoliday);
-					ObjectOutputStream objectOut=new ObjectOutputStream(out);
-					objectOut.writeObject(tableHoliday);
-					objectOut.close();
-					SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
+//					FileInputStream   inOne=new FileInputStream(fileHoliday);
+//					ObjectInputStream inTwo=new ObjectInputStream(inOne);
+//					tableHoliday=(Hashtable)inTwo.readObject();
+//					inOne.close();
+//					inTwo.close();
+//					tableHoliday.put(key,content);                                  
+//					FileOutputStream out=new FileOutputStream(fileHoliday);
+//					ObjectOutputStream objectOut=new ObjectOutputStream(out);
+//					objectOut.writeObject(tableHoliday);
+//					objectOut.close();
+//					SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
 					SpecialDay s=new SpecialDay("No.1", namesa.getText(), 
-							"Hello!", sdf.parse(""+year+""+month+""+day),"8:00", "10:00");
+							"Hello!",""+year+""+month+""+day,"8:00", "10:00");
 					s.writeToFile("No.1");
-					out.close();
+//					out.close();
 		        }
 		      catch(Exception ee){
 		        }
 			}
 		});
 		
-=======
 
->>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
 		//create the event JPanel
 		JPanel je=new JPanel();
 		je.setLayout(new BorderLayout());
@@ -171,7 +165,7 @@ public class NewWindow extends JFrame{
 					String endTime=eventEndTime.getText();
 					Date eventDateValue = new SimpleDateFormat("yyyy-MM-dd").parse(eventDate.getText());
 					Event event=new Event(name,location,details,eventDateValue,startTime,endTime);
-					calendarData.addEventAndSave(event);
+//					calendarData.addEventAndSave(event);
 		        }
 		      catch(Exception ee){
                   ee.printStackTrace();
@@ -235,7 +229,7 @@ public class NewWindow extends JFrame{
                     String endTime=eventEndTime.getText();
                     Date eventDateValue = new SimpleDateFormat("yyyy-MM-dd").parse(reservationDate.getText());
                     Reservation event=new Reservation(name,details,location,eventDateValue,startTime,endTime);
-                    calendarData.addReservationAndSave(event);
+//                    calendarData.addReservationAndSave(event);
                 }
                 catch(Exception ee){
                     ee.printStackTrace();

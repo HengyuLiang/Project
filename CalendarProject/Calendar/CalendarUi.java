@@ -53,7 +53,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		month = Calendar.getInstance().get(Calendar.MONTH)+1;
 		calendar.setYear(year);
 		calendar.setMonth(month);  //set initial data;
-		calendar.openCalendarEvents();
+//		calendar.openCalendarEvents();
 		//create the operation panel;
 		JPanel JNorth = new JPanel();
 		JNorth.setLayout(new GridBagLayout());
@@ -228,7 +228,6 @@ public class CalendarUi extends JFrame implements ActionListener{
 									NewWindow nw=new NewWindow(year,month,Integer.parseInt(labelDay[a].getText()),calendar);
 								}else if(e.getButton() == MouseEvent.BUTTON1){
 									//right button 
-//									message.setText("Hello");	
 								}
 							}
 						}
@@ -286,9 +285,6 @@ public class CalendarUi extends JFrame implements ActionListener{
 			String day[] = calendar.getDate();
 			for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
-//				if(i%7==0||i%7==6){
-//					labelDay[i].setForeground(Color.red);
-//				}
 				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
 					
 					labelDay[i].setForeground(Color.blue);
@@ -311,9 +307,6 @@ public class CalendarUi extends JFrame implements ActionListener{
 		    String day[]=calendar.getDate();
 		    for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
-//				if(i%7==0||i%7==6){
-//					labelDay[i].setForeground(Color.red);
-//				}
 				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
 					
 					labelDay[i].setForeground(Color.blue);
@@ -331,9 +324,6 @@ public class CalendarUi extends JFrame implements ActionListener{
 			String day[] = calendar.getDate();
 			for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
-//				if(i%7==0||i%7==6){
-//					labelDay[i].setForeground(Color.red);
-//				}
 				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
 					labelDay[i].setForeground(Color.blue);
 				}else{
@@ -353,10 +343,6 @@ public class CalendarUi extends JFrame implements ActionListener{
 			String day[] = calendar.getDate();
 			for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
-//				if(i%7==0||i%7==6){
-//					labelDay[i].setForeground(Color.red);
-//				}
-//				
 				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
 					labelDay[i].setForeground(Color.blue);
 				}else{
@@ -370,57 +356,57 @@ public class CalendarUi extends JFrame implements ActionListener{
 		}
 	}
 	
-	private void setUpCalendarEvent(final JFrame jFrame, final CalendarData calData){
-		JDialog dialog=new JDialog(jFrame,"Create Event",true);
-		dialog.setSize(300, 200);
-		dialog.setBounds(jFrame.getWidth() - 300, jFrame.getHeight() - 200, 300, 200);
-		dialog.setLayout(new BorderLayout());
-		JPanel buttonPanel = new JPanel(new FlowLayout());
-		JButton add = new JButton("Add");
-		JButton cancel = new JButton("Cancel");
-		cancel.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				dialog.setVisible(false);
-				dialog.dispose();
-			}
-		});
-		buttonPanel.add(add);
-		buttonPanel.add(cancel);
-		dialog.add(buttonPanel,BorderLayout.SOUTH);
-		JPanel detailspanel = new JPanel(new GridLayout(6,2));
-		JTextField eventname = new JTextField(20);
-		JTextField eventlocation = new JTextField(20);
-		JTextField eventdiscription = new JTextField(20);
-		JTextField eventdate = new JTextField(20);
-		JTextField starttime = new JTextField(20);
-		JTextField endtime = new JTextField(20);
-		detailspanel.add(new JLabel("Event Name:"));
-		detailspanel.add (eventname);
-		detailspanel.add(new JLabel("Event Location:"));
-		detailspanel.add (eventlocation);
-
-		detailspanel.add(new JLabel("Event Discription"));
-		detailspanel.add (eventdiscription);
-
-		detailspanel.add(new JLabel("Event Date:"));
-		detailspanel.add (eventdate);
-
-		detailspanel.add(new JLabel("Start Time:"));
-		detailspanel.add (starttime);
-		
-		detailspanel.add(new JLabel("End Time:"));
-		detailspanel.add (endtime);
-		dialog.add(detailspanel,BorderLayout.CENTER);
-		
-		dialog.setVisible(true);
-		
-
-
-		
-		dialog.setVisible(true);
-	}
+//	private void setUpCalendarEvent(final JFrame jFrame, final CalendarData calData){
+//		JDialog dialog=new JDialog(jFrame,"Create Event",true);
+//		dialog.setSize(300, 200);
+//		dialog.setBounds(jFrame.getWidth() - 300, jFrame.getHeight() - 200, 300, 200);
+//		dialog.setLayout(new BorderLayout());
+//		JPanel buttonPanel = new JPanel(new FlowLayout());
+//		JButton add = new JButton("Add");
+//		JButton cancel = new JButton("Cancel");
+//		cancel.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				dialog.setVisible(false);
+//				dialog.dispose();
+//			}
+//		});
+//		buttonPanel.add(add);
+//		buttonPanel.add(cancel);
+//		dialog.add(buttonPanel,BorderLayout.SOUTH);
+//		JPanel detailspanel = new JPanel(new GridLayout(6,2));
+//		JTextField eventname = new JTextField(20);
+//		JTextField eventlocation = new JTextField(20);
+//		JTextField eventdiscription = new JTextField(20);
+//		JTextField eventdate = new JTextField(20);
+//		JTextField starttime = new JTextField(20);
+//		JTextField endtime = new JTextField(20);
+//		detailspanel.add(new JLabel("Event Name:"));
+//		detailspanel.add (eventname);
+//		detailspanel.add(new JLabel("Event Location:"));
+//		detailspanel.add (eventlocation);
+//
+//		detailspanel.add(new JLabel("Event Discription"));
+//		detailspanel.add (eventdiscription);
+//
+//		detailspanel.add(new JLabel("Event Date:"));
+//		detailspanel.add (eventdate);
+//
+//		detailspanel.add(new JLabel("Start Time:"));
+//		detailspanel.add (starttime);
+//		
+//		detailspanel.add(new JLabel("End Time:"));
+//		detailspanel.add (endtime);
+//		dialog.add(detailspanel,BorderLayout.CENTER);
+//		
+//		dialog.setVisible(true);
+//		
+//
+//
+//		
+//		dialog.setVisible(true);
+//	}
 	
 }	  
 //need new actionListener
