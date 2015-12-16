@@ -75,7 +75,7 @@ public class CalendarData {
 		}
 		for(Reservation event: reservations){
 			Calendar cal=Calendar.getInstance();
-			cal.setTime(event.getResourceDate());
+//			cal.setTime(event.getResourceDate());
 			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
 				reservatoinDays.add(cal.get(Calendar.DAY_OF_MONTH));
 			}
@@ -101,8 +101,8 @@ public class CalendarData {
 		calendarEventsFileName=fileName;
 		try {
 			//
-			JSONParser parser=new JSONParser(Source.sourceFor("calendarData", new File(fileName)),new ErrorManager());
-			Node node=parser.parse();
+//			JSONParser parser=new JSONParser(Source.sourceFor("calendarData", new File(fileName)),new ErrorManager());
+//			Node node=parser.parse();
 			//read node for events and reservations
 			//node.e
 		}catch (Exception e){
@@ -134,9 +134,9 @@ public class CalendarData {
 				builder2.append("\n");
 				builder2.append("{");
 				builder2.append(getPair("name",e.getReservationName())).append(",");
-				builder2.append(getPair("resourceType",e.getReservationResourcetype())).append(",");
-				builder2.append(getPair("location",e.getResourceLocation())).append(",");
-				builder2.append(getPair("date",DATE_FORMATER.format(e.getResourceDate()))).append(",");
+//				builder2.append(getPair("resourceType",e.getReservationResourcetype())).append(",");
+//				builder2.append(getPair("location",e.getResourceLocation())).append(",");
+//				builder2.append(getPair("date",DATE_FORMATER.format(e.getResourceDate()))).append(",");
 				builder2.append("},");
 			}
 			printWriter.println(builder2.toString().substring(0,builder2.toString().length()-1));

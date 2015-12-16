@@ -9,62 +9,74 @@ import java.util.Date;
 
 import com.google.gson.Gson;
 
-public class Event {
-	private String eventId;
-	private String eventName;
-	private String eventDiscription;
-	private Date eventDate;
+public class SpecialDay {
+	private String specialdayId;
+	private String specialdayName;
+	private String specialdayDiscription;
+	private Date specialdayDate;
 	private String startTime, endTime;
-	public Event(String eventId, String eventName, 
-			String eventDiscription, Date eventDate,
+	public SpecialDay(String specialdayId, String specialdayName, 
+			String specialdayDiscription, Date specialdayDate,
 			String startTime, String endTime) {
-		this.eventId = eventId;
-		this.eventName = eventName;
-		this.eventDiscription = eventDiscription;
-		this.eventDate = eventDate;
+		this.specialdayId = specialdayId;
+		this.specialdayName = specialdayName;
+		this.specialdayDiscription = specialdayDiscription;
+		this.specialdayDate = specialdayDate;
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
-	public String getEventId() {
-		return eventId;
+	public String getSpecialdayId() {
+		return specialdayId;
 	}
-	public String getEventName() {
-		return eventName;
+
+	public void setSpecialdayId(String specialdayId) {
+		this.specialdayId = specialdayId;
 	}
-	public String getEventDiscription() {
-		return eventDiscription;
+
+	public String getSpecialdayName() {
+		return specialdayName;
 	}
-	public Date getEventDate() {
-		return eventDate;
+
+	public void setSpecialdayName(String specialdayName) {
+		this.specialdayName = specialdayName;
 	}
+
+	public String getSpecialdayDiscription() {
+		return specialdayDiscription;
+	}
+
+	public void setSpecialdayDiscription(String specialdayDiscription) {
+		this.specialdayDiscription = specialdayDiscription;
+	}
+
+	public Date getSpecialdayDate() {
+		return specialdayDate;
+	}
+
+	public void setSpecialdayDate(Date specialdayDate) {
+		this.specialdayDate = specialdayDate;
+	}
+
 	public String getStartTime() {
 		return startTime;
 	}
-	public String getEndTime() {
-		return endTime;
-	}
-	public void setEventId(String eventId) {
-		this.eventId = eventId;
-	}
-	public void setEventName(String eventName) {
-		this.eventName = eventName;
-	}
-	public void setEventDiscription(String eventDiscription) {
-		this.eventDiscription = eventDiscription;
-	}
-	public void setEventDate(Date eventDate) {
-		this.eventDate = eventDate;
-	}
+
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
+
 	public void writeToFile(String s) throws IOException {
 		Gson g=new Gson();
         String Content = g.toJson(this);// 要写入的文本
-        File file = new File("/Users/hengyuliang/Desktop"+s);// 要写入的文本文件
+        File file = new File("/Users/hengyuliang/Desktop");// 要写入的文本文件
         if (!file.exists()) {// 如果文件不存在，则创建该文件
             file.createNewFile();
         }
@@ -73,8 +85,8 @@ public class Event {
         writer.flush();// 清空缓冲区，立即将输出流里的内容写到文件里
         writer.close();// 关闭输出流，施放资源
     }
-	public void readFromFile() throws FileNotFoundException, IOException {
-        File file = new File("/Users/hengyuliang/Desktop");// 指定要读取的文件
+	public void readFromFile(String s) throws FileNotFoundException, IOException {
+        File file = new File("/Users/hengyuliang/Desktop"+s+".txt");// 指定要读取的文件
         FileReader reader = new FileReader(file);// 获取该文件的输入流
         char[] bb = new char[1024];// 用来保存每次读取到的字符
         String str = "";// 用来将每次读取到的字符拼接，当然使用StringBuffer类更好

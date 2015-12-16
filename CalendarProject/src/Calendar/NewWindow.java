@@ -13,6 +13,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Hashtable;
 
 import javax.swing.JButton;
@@ -113,6 +115,10 @@ public class NewWindow extends JFrame{
 					ObjectOutputStream objectOut=new ObjectOutputStream(out);
 					objectOut.writeObject(tableHoliday);
 					objectOut.close();
+					SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
+					SpecialDay s=new SpecialDay("No.1", namesa.getText(), 
+							"Hello!", sdf.parse(""+year+""+month+""+day),"8:00", "10:00");
+					s.writeToFile("No.1");
 					out.close();
 		        }
 		      catch(Exception ee){
