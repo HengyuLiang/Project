@@ -14,11 +14,27 @@ public class Event {
 	private String location;
 	private String eventDiscription;
 	private String startTime;
-	public Event(String eventName, String location,String eventDiscription,String startTime) {
+	private Date eventDate;
+	private final Long id;
+
+	public Event(Date eventDate,String eventName, String location,String eventDiscription,String startTime) {
+		this(eventDate,eventName,location,eventDiscription,startTime,System.currentTimeMillis());
+	}
+	public Event(Date eventDate,String eventName, String location,String eventDiscription,String startTime,Long id) {
+		this.eventDate=eventDate;
 		this.eventName = eventName;
 		this.eventDiscription = eventDiscription;
 		this.location=location;
 		this.startTime = startTime;
+		this.id=id;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Date getEventDate() {
+		return eventDate;
 	}
 
 	public String getEventName() {
@@ -49,7 +65,7 @@ public class Event {
 		Gson g=new Gson();
         String Content = g.toJson(this);// 要写入的文本
         try{
-        File file = new File("/Users/hengyuliang/Desktop/"+s+"Event.txt");// 要写入的文本文件
+        File file = new File(s+"Event.txt");// 要写入的文本文件
         if (!file.exists()) {// 如果文件不存在，则创建该文件
             file.createNewFile();
         }
@@ -60,7 +76,7 @@ public class Event {
         }catch(Exception e){}
     }
 	public static Event readFromFile(String s) throws FileNotFoundException, IOException {
-        File file = new File("/Users/hengyuliang/Desktop/"+s+"Event.txt");// 指定要读取的文件
+        File file = new File(s+"Event.txt");// 指定要读取的文件
         FileReader reader = new FileReader(file);// 获取该文件的输入流
         char[] bb = new char[1024];// 用来保存每次读取到的字符
         String str = "";// 用来将每次读取到的字符拼接，当然使用StringBuffer类更好

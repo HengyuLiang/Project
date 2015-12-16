@@ -14,14 +14,30 @@ public class Reservation
 	private String location;
 	private String reservationName;
 	private String reservationDiscription;
-	public Reservation(String reservationName, String reservationDiscription,String location,String startTime) {
+	private Date reservationDate;
+	private final Long id;
+
+	public Reservation(Date reservationDate,String reservationName, String reservationDiscription,String location,String startTime) {
+		this(reservationDate,reservationName,reservationDiscription,location,startTime,System.currentTimeMillis());
+	}
+	public Reservation(Date reservationDate,String reservationName, String reservationDiscription,String location,String startTime,Long id) {
 		this.reservationName = reservationName;
 		this.reservationDiscription = reservationDiscription;
 		this.startTime = startTime;
 		this.location = location;
+		this.reservationDate=reservationDate;
+		this.id=id;
 	}
 	public String getReservationDiscription() {
 		return reservationDiscription;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Date getReservationDate() {
+		return reservationDate;
 	}
 
 	public void setReservationDiscription(String reservationDiscription) {

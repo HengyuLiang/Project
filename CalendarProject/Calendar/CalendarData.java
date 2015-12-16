@@ -4,6 +4,8 @@ package Calendar;
 //import org.json.simple.JSONObject;
 //import org.json.simple.parser.JSONParser;
 
+import com.google.gson.Gson;
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -11,9 +13,7 @@ public class CalendarData {
 
 	private int year;
 	private int month;
-	private Collection<Event> events=new ArrayList<Event>();
-	private Collection<Reservation> reservations = new ArrayList<Reservation>();
-    private Collection<Date> holidays = new ArrayList<Date>();
+
 	private String calendarEventsFileName="default-calendar-data.json";
  	public static final SimpleDateFormat DATE_FORMATER =  new SimpleDateFormat("MM/dd/yyyy");
 	public int getYear(){
@@ -22,7 +22,7 @@ public class CalendarData {
 	public void setYear(int year){
 		this.year=year;
 	}
-	
+	private CalendarDetails calendarDetails=new CalendarDetails();
 	/*
 	 * Month value starts from 1 to 12.
 	 */
@@ -100,18 +100,40 @@ public class CalendarData {
 	
 	}
 
-//	public void addEventAndSave(Event event){
-//		this.events.add(event);
-//		saveCalendarEvents(calendarEventsFileName);
-//	}
-//	public void addReservationAndSave(Reservation
-//											  reservation){
-//		this.reservations.add(reservation);
-//		saveCalendarEvents(calendarEventsFileName);
-//	}
-//	public void openCalendarEvents(){
-//		openCalendarEvents(calendarEventsFileName);
-//	}
+	public void addEventAndSave(Event event){
+		calendarDetails.addEvent(event);
+		saveUpdates();
+	}
+	public void addReservationAndSave(Reservation
+											  reservation){
+		calendarDetails.addReservation(reservation);
+		saveUpdates();
+	}
+
+	public void addHolidayAndSave(Holiday
+											  holiday){
+		calendarDetails.addHoliday(holiday);
+		saveUpdates();
+	}
+
+
+	public void openCalendarEvents() {
+		File file = new File(calendarEventsFileName);
+		try {
+			FileReader reader = new FileReader(file);
+			char[] bb = new char[1024];
+			String str = "";
+			int n;
+			while ((n = reader.read(bb)) != -1) {
+				str += new String(bb, 0, n);
+			}
+			reader.close();// 关闭输入流，释放连接
+			Gson g = new Gson();
+			calendarDetails= g.fromJson(str, CalendarDetails.class);
+		}catch (Exception e){
+			throw new RuntimeException("Unable to load file:"+e);
+		}
+	}
 //
 //	public void openCalendarEvents(String fileName){
 //		calendarEventsFileName=fileName;
@@ -237,8 +259,52 @@ public class CalendarData {
 //		return ""+"\""+name+"\":\""+value+"\"";
 //	}
 
-//    public static void main(String args[]){
-//        new CalendarData().openCalendarEvents();
-//    }
+    public static void main(String args[]){
+       new CalendarData().openCalendarEvents();
+    }
+
+	class CalendarDetails{
+		private Map<Long,Event> events=new TreeMap();
+		private Map<Long,Reservation> reservations = new TreeMap();
+		private Map<Long,Holiday> holidays = new TreeMap();
+
+		public void addHoliday(Holiday holiday){
+			holidays.put(holiday.getId(),holiday);
+		}
+		public void addEvent(Event event){
+			events.put(event.getId(),event);
+		}
+		public void addReservation(Reservation reservation){
+			reservations.put(reservation.getId(),reservation);
+		}
+
+		public void deleteHoliday(Holiday holiday){
+			holidays.remove(holiday.getId());
+		}
+		public void deleteEvent(Event event){
+			events.remove(event.getId());
+		}
+		public void deleteReservation(Reservation reservation){
+			reservations.remove(reservation.getId());
+		}
+	}
+
+	private void saveUpdates(){
+		Gson gson=new Gson();
+		String Content = gson.toJson(calendarDetails);
+		try {
+			File file = new File(calendarEventsFileName);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			FileWriter writer = new FileWriter(file);
+			writer.write(Content);
+			writer.flush();
+			writer.close();
+		}catch(Exception e){
+			throw new RuntimeException("Unable to write to file:"+e);
+		}
+	}
 	
 }
+

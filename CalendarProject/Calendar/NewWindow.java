@@ -3,31 +3,16 @@ package Calendar;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Hashtable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class NewWindow extends JFrame{
 	int year,month,day;
 	private final CalendarData calendarData;
+	private static final SimpleDateFormat SIMPLE_DATE_FORMAT= new SimpleDateFormat("yyyy-MM-dd");
 	public NewWindow(int year, int month, int day,CalendarData calendarData){
 		this.year = year;
 		this.month = month;
@@ -42,15 +27,16 @@ public class NewWindow extends JFrame{
 		JPanel js=new JPanel();
 		js.setLayout(new BorderLayout());
 		JButton saveS=new JButton("Save");
-		JButton deleteS=new JButton("Delete");
-		deleteS.addActionListener(new ActionListener(){
+		//JButton deleteS=new JButton("Delete");
+		/*deleteS.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				dispose();
 			
 			}
-		});
+		});*/
+
 		JButton cancelS=new JButton("Cancel");
 		cancelS.addActionListener(new ActionListener(){
 			@Override
@@ -62,47 +48,25 @@ public class NewWindow extends JFrame{
 		});
 		JPanel jbs=new JPanel();
 		jbs.add(saveS,BorderLayout.EAST);
-		jbs.add(deleteS,BorderLayout.CENTER);
+		//jbs.add(deleteS,BorderLayout.CENTER);
 		jbs.add(cancelS, BorderLayout.WEST);
 		js.add(jbs,BorderLayout.SOUTH);
 		JPanel details=new JPanel();
-		details.setLayout(new GridBagLayout());
-		GridBagConstraints gbcs=new GridBagConstraints();
-		gbcs.fill=GridBagConstraints.BOTH;
-		gbcs.gridx=0;
-		gbcs.gridy=0;
-		gbcs.gridwidth=1;
-		gbcs.gridheight=1;
-		gbcs.weightx=0;
-		gbcs.weighty=0;
-		JLabel namesl=new JLabel("Name");
-		details.add(namesl, gbcs);
-		gbcs.gridx=1;
-		gbcs.gridy=0;
-		gbcs.gridwidth=10;
-		gbcs.gridheight=2;
-		gbcs.weightx=1;
-		gbcs.weighty=1;
-		JTextArea namesa=new JTextArea();
-		JScrollPane jnames=new JScrollPane(namesa);
-		namesa.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
-		namesa.setLineWrap(true); 
-		namesa.setWrapStyleWord(true);
-		namesa.setFont(new Font("Arial",1,20));
-		try {
-			SpecialDay sd;
-			sd=SpecialDay.readFromFile(""+year+""+month+""+day);
-			namesa.setText(sd.getSpecialdayName());
-		} catch (Exception e1) {} 
-		details.add(jnames,gbcs);
+		details.setLayout(new GridLayout(2,2));
+		JTextField hDate=new JTextField(""+year+"-"+month+"-"+day);
+		JTextField hName=new JTextField("");
+		details.add(new JLabel("Date :")); details.add(hDate);
+		details.add(new JLabel("Name :")); details.add(hName);
+
 		js.add(details,BorderLayout.CENTER);
-		tab.addTab("SpecialDay", js);
+		tab.addTab("Holiday", js);
 		saveS.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				try{
-					String content = namesa.getText();
-					SpecialDay s=new SpecialDay(namesa.getText());
-					s.writeToFile(""+year+""+month+""+day);
+					String content = hName.getText();
+					Date date=getDate(hDate.getText());
+					Holiday s=new Holiday(content,date);
+					calendarData.addHolidayAndSave(s);
 		        }
 		      catch(Exception ee){}
 			}
@@ -191,8 +155,8 @@ public class NewWindow extends JFrame{
 					String location = eventLocation.getText();
 					String details = eventDetails.getText();
 					String startTime=eventStartTime.getText();
-					Event et=new Event(name,location,details,startTime);
-					et.writeToFile(""+year+""+month+""+day);
+					Event et=new Event(getDate(""+year+"-"+month+"-"+day),name,location,details,startTime);
+					calendarData.addEventAndSave(et);
 		        }
 		      catch(Exception ee){
 		        }
@@ -285,13 +249,21 @@ public class NewWindow extends JFrame{
                     String location = resourceLocation.getText();
                     String details = rDetails.getText();
                     String startTime=eventStartTime.getText();
-                    Reservation rv=new Reservation(name,details,location,startTime);
-                    rv.writeToFile(""+year+""+month+""+day);
+                    Reservation rv=new Reservation(getDate(""+year+"-"+month+"-"+day),name,details,location,startTime);
+                    calendarData.addReservationAndSave(rv);
                 }
                 catch(Exception ee){}
                 dispose();
 			}
 		});
 		setVisible(true);
+	}
+
+	private Date getDate(String dateValue){
+		try{
+			return SIMPLE_DATE_FORMAT.parse(dateValue);
+		}catch(ParseException parse){
+			return null;
+		}
 	}
 }
