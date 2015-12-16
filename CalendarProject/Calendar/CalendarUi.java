@@ -200,7 +200,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		previousMonth.addActionListener(this);
 		nextYear.addActionListener(this);
 		previousYear.addActionListener(this);
-		hashtable=new Hashtable();
+//		hashtable=new Hashtable();
 	    file=new File("event.txt");
 	    if(!file.exists())
 	      {
