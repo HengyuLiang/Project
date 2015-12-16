@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -14,8 +13,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Hashtable;
 
 import javax.swing.JButton;
@@ -26,7 +25,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.io.*;
@@ -51,9 +49,11 @@ public class CalendarUi extends JFrame implements ActionListener{
 		setSize(800,600);
 		setTitle("MyCalendar");
 		calendar = new CalendarData();
+		year = Calendar.getInstance().get(Calendar.YEAR);
+		month = Calendar.getInstance().get(Calendar.MONTH)+1;
 		calendar.setYear(year);
 		calendar.setMonth(month);  //set initial data;
-
+		calendar.openCalendarEvents();
 		//create the operation panel;
 		JPanel JNorth = new JPanel();
 		JNorth.setLayout(new GridBagLayout());
@@ -417,23 +417,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 		dialog.setVisible(true);
 		
 
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/YYYY");
-		add.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				try{
 
-				Event event = new Event(eventname.getText(),eventlocation.getText(),
-						eventdiscription.getText(),
-						format.parse(eventdate.getText()),
-						starttime.getText(),endtime.getText());
-
-				} catch(Exception e) {
-					System.out.println(e.getMessage());
-				}
-				dialog.setVisible(false);
-				dialog.dispose();
-			}
-		});
 		
 		dialog.setVisible(true);
 	}

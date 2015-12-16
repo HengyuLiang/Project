@@ -4,21 +4,22 @@ import java.util.Date;
 
 public class Reservation 
 {
-	private String reservationName;
+	private String createdFor;
+	private String startTime;
+	private String endTime;
 	private String reservationResourcetype;
 	private String resourceLocation;
 	private Date resourceDate;
 
-	public Reservation(String reservationName, String reservationResourcetype, String resourceLocation, Date resourceDate) {
-		this.reservationName = reservationName;
+	public Reservation(String createdFor, String reservationResourcetype, String resourceLocation, Date resourceDate, String startTime, String endTime) {
+		this.createdFor = createdFor;
 		this.reservationResourcetype = reservationResourcetype;
 		this.resourceLocation = resourceLocation;
 		this.resourceDate = resourceDate;
+		this.startTime=startTime;
+		this.endTime=endTime;
 	}
 
-	public String getReservationName() {
-		return reservationName;
-	}
 
 	public String getReservationResourcetype() {
 		return reservationResourcetype;
@@ -30,5 +31,17 @@ public class Reservation
 
 	public Date getResourceDate() {
 		return resourceDate;
+	}
+
+	public String getCreatedFor() {
+		return createdFor;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
 	}
 }
