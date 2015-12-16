@@ -7,8 +7,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 
+<<<<<<< HEAD
 import com.google.gson.Gson;
+=======
+public class Reservation 
+{
+	private String createdFor;
+	private String startTime;
+	private String endTime;
+	private String reservationResourcetype;
+	private String resourceLocation;
+	private Date resourceDate;
+>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
 
+<<<<<<< HEAD
 public class Reservation {
 	private String reservationId;
 	private String reservationName;
@@ -31,11 +43,17 @@ public class Reservation {
 
 	public void setReservationId(String reservationId) {
 		this.reservationId = reservationId;
+=======
+	public Reservation(String createdFor, String reservationResourcetype, String resourceLocation, Date resourceDate, String startTime, String endTime) {
+		this.createdFor = createdFor;
+		this.reservationResourcetype = reservationResourcetype;
+		this.resourceLocation = resourceLocation;
+		this.resourceDate = resourceDate;
+		this.startTime=startTime;
+		this.endTime=endTime;
+>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
 	}
 
-	public String getReservationName() {
-		return reservationName;
-	}
 
 	public void setReservationName(String reservationName) {
 		this.reservationName = reservationName;
@@ -49,6 +67,7 @@ public class Reservation {
 		this.reservationDiscription = reservationDiscription;
 	}
 
+<<<<<<< HEAD
 	public Date getReservationDate() {
 		return reservationDate;
 	}
@@ -95,4 +114,17 @@ public class Reservation {
         }
         reader.close();// 关闭输入流，释放连接
     }
+=======
+	public String getCreatedFor() {
+		return createdFor;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
 }

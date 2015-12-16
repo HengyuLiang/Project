@@ -1,23 +1,19 @@
 package Calendar;
 
-import jdk.nashorn.internal.ir.Node;
-import jdk.nashorn.internal.parser.JSONParser;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.Source;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 public class CalendarData {
 
 	private int year;
 	private int month;
-	private Collection<Event> events=new ArrayList();
-	private Collection<Reservation> reservations = new ArrayList();
+	private Collection<Event> events=new ArrayList<Event>();
+	private Collection<Reservation> reservations = new ArrayList<Reservation>();
+    private Collection<Date> holidays = new ArrayList<Date>();
 	private String calendarEventsFileName="default-calendar-data.json";
  	public static final SimpleDateFormat DATE_FORMATER =  new SimpleDateFormat("MM/dd/yyyy");
 	public int getYear(){
@@ -93,13 +89,22 @@ public class CalendarData {
 		this.events.add(event);
 		saveCalendarEvents(calendarEventsFileName);
 	}
-	public void addReservationAndSave(Reservation reservation){
+	public void addReservationAndSave(Reservation
+											  reservation){
 		this.reservations.add(reservation);
 		saveCalendarEvents(calendarEventsFileName);
 	}
+	public void openCalendarEvents(){
+		openCalendarEvents(calendarEventsFileName);
+	}
+
 	public void openCalendarEvents(String fileName){
 		calendarEventsFileName=fileName;
+
+		JSONParser parser = new JSONParser();
+
 		try {
+<<<<<<< HEAD
 			//
 //			JSONParser parser=new JSONParser(Source.sourceFor("calendarData", new File(fileName)),new ErrorManager());
 //			Node node=parser.parse();
@@ -107,7 +112,55 @@ public class CalendarData {
 			//node.e
 		}catch (Exception e){
 			throw new RuntimeException("Unable to load file:",e);
+=======
+
+			Object obj = parser.parse(new FileReader(fileName));
+
+			JSONObject jsonObject = (JSONObject) obj;
+
+			JSONArray events = (JSONArray) jsonObject.get("Events");
+
+            for(Object eventObject : events){
+				JSONObject eventJsonObject = (JSONObject) eventObject;
+
+				//Events
+				Event event= new Event(getJsonString(eventJsonObject,"name"),getJsonString(eventJsonObject,"location"),
+						getJsonString(eventJsonObject,"description"), DATE_FORMATER.parse(getJsonString(eventJsonObject,"date")),
+						getJsonString(eventJsonObject,"startTime"), getJsonString(eventJsonObject,"endTime"));
+				System.out.println(event);
+
+				this.events.add(event);
+			}
+
+            JSONArray reservations = (JSONArray) jsonObject.get("Reservations");
+            for(Object eventObject : reservations){
+                JSONObject eventJsonObject = (JSONObject) eventObject;
+
+                //Events
+                Reservation event= new Reservation(getJsonString(eventJsonObject,"name"),
+                        getJsonString(eventJsonObject,"description"),getJsonString(eventJsonObject,"location"),
+                         DATE_FORMATER.parse(getJsonString(eventJsonObject,"date")),
+                        getJsonString(eventJsonObject,"startTime"), getJsonString(eventJsonObject,"endTime"));
+                System.out.println(event);
+
+                this.reservations.add(event);
+            }
+
+
+
+        } catch (Exception e) {
+			e.printStackTrace();
+>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
 		}
+	}
+
+
+	private String getJsonString(JSONObject jsonObject, String columnName){
+		return (String) jsonObject.get(columnName);
+	}
+
+	private Date getJsonDate(JSONObject jsonObject, String columnName){
+		return (Date) jsonObject.get(columnName);
 	}
 
 	public void saveCalendarEvents(String fileName){
@@ -116,20 +169,25 @@ public class CalendarData {
 			printWriter.println("{");
 			printWriter.print("\"Events\":[");
 			StringBuilder builder=new StringBuilder();
-			for(Event e: events){
-				builder.append("\n");
-				builder.append("{");
-				builder.append(getPair("name",e.getEventName())).append(",");
-				builder.append(getPair("description",e.getEventDiscription())).append(",");
-				builder.append(getPair("date",DATE_FORMATER.format(e.getEventDate()))).append(",");
-				builder.append(getPair("startTime",e.getStartTime())).append(",");
-				builder.append(getPair("endTime",e.getEndTime()));
-				builder.append("},");
+			if(!events.isEmpty()) {
+				for (Event e : events) {
+					builder.append("\n");
+					builder.append("{");
+					builder.append(getPair("name", e.getEventName())).append(",");
+                    builder.append(getPair("location", e.getLocation())).append(",");
+					builder.append(getPair("description", e.getEventDiscription())).append(",");
+					builder.append(getPair("date", DATE_FORMATER.format(e.getEventDate()))).append(",");
+					builder.append(getPair("startTime", e.getStartTime())).append(",");
+					builder.append(getPair("endTime", e.getEndTime()));
+					builder.append("},");
+				}
+				printWriter.println(builder.toString().substring(0, builder.toString().length() - 1));
 			}
-			printWriter.println(builder.toString().substring(0,builder.toString().length()-1));
-			printWriter.println("];");
+			System.out.println(builder.toString().substring(0,builder.toString().length()-1));
+			printWriter.println("]");
 			printWriter.print("\"Reservations\":[");
 			StringBuilder builder2=new StringBuilder();
+<<<<<<< HEAD
 			for(Reservation e: reservations){
 				builder2.append("\n");
 				builder2.append("{");
@@ -138,9 +196,27 @@ public class CalendarData {
 //				builder2.append(getPair("location",e.getResourceLocation())).append(",");
 //				builder2.append(getPair("date",DATE_FORMATER.format(e.getResourceDate()))).append(",");
 				builder2.append("},");
+=======
+			if(!reservations.isEmpty()) {
+				for (Reservation e : reservations) {
+					builder2.append("\n");
+					builder2.append("{");
+					builder2.append(getPair("name", e.getCreatedFor())).append(",");
+					builder2.append(getPair("resourceType", e.getReservationResourcetype())).append(",");
+					builder2.append(getPair("location", e.getResourceLocation())).append(",");
+					builder2.append(getPair("date", DATE_FORMATER.format(e.getResourceDate()))).append(",");
+                    builder.append(getPair("startTime", e.getStartTime())).append(",");
+                    builder.append(getPair("endTime", e.getEndTime()));
+					builder2.append("},");
+				}
+				printWriter.println(builder2.toString().substring(0, builder2.toString().length() - 1));
+				System.out.println(builder2.toString().substring(0, builder2.toString().length() - 1));
+>>>>>>> branch 'master' of https://github.com/HengyuLiang/Project.git
 			}
-			printWriter.println(builder2.toString().substring(0,builder2.toString().length()-1));
-			printWriter.println("];");
+
+
+			printWriter.println("]");
+            printWriter.println("}");
 			printWriter.flush();
 			printWriter.close();
 		}catch(FileNotFoundException fnfe){
@@ -152,5 +228,9 @@ public class CalendarData {
 	private String getPair(String name, String value){
 		return ""+"\""+name+"\":\""+value+"\"";
 	}
+
+    public static void main(String args[]){
+        new CalendarData().openCalendarEvents();
+    }
 	
 }
