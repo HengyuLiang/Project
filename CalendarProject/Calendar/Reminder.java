@@ -14,7 +14,11 @@ import javax.swing.JTextArea;
 
 public class Reminder extends JFrame{
 	private String s;
-	public Reminder(String s){
+	private int day,month,year;
+	public Reminder(String s,int year,int month,int day){
+		this.day = day;
+		this.month = month;
+		this.year = year;
 		this.s=s;
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
@@ -29,7 +33,14 @@ public class Reminder extends JFrame{
 		JTextArea detail=new JTextArea();
 		JScrollPane jdetail=new JScrollPane(detail);
 		detail.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
-		detail.setText(s);//set the containing of the reminder
+		try{
+			Reservation rv;
+			rv = Reservation.readFromFile(""+year+""+month+""+day);
+			detail.setText("Reservation Name is:"+rv.getReservationName()+" in "+rv.getLocation()+" at "+rv.getStartTime());
+		}catch(Exception e1){
+			
+		}
+		//detail.setText(s);//set the containing of the reminder
 		detail.setLineWrap(true); 
 		detail.setWrapStyleWord(true);
 		detail.setFont(new Font("Arial",1,20));

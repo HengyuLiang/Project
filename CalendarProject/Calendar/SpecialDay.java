@@ -11,29 +11,10 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 public class SpecialDay {
-	private String specialdayId;
 	private String specialdayName;
-	private String specialdayDiscription;
-	private String specialdayDate;
-	private String startTime, endTime;
-	public SpecialDay(String specialdayId, String specialdayName, 
-			String specialdayDiscription, String specialdayDate,
-			String startTime, String endTime) {
-		this.specialdayId = specialdayId;
+	public SpecialDay(String specialdayName) {
 		this.specialdayName = specialdayName;
-		this.specialdayDiscription = specialdayDiscription;
-		this.specialdayDate = specialdayDate;
-		this.startTime = startTime;
-		this.endTime = endTime;
 	}
-	public String getSpecialdayId() {
-		return specialdayId;
-	}
-
-	public void setSpecialdayId(String specialdayId) {
-		this.specialdayId = specialdayId;
-	}
-
 	public String getSpecialdayName() {
 		return specialdayName;
 	}
@@ -41,43 +22,10 @@ public class SpecialDay {
 	public void setSpecialdayName(String specialdayName) {
 		this.specialdayName = specialdayName;
 	}
-
-	public String getSpecialdayDiscription() {
-		return specialdayDiscription;
-	}
-
-	public void setSpecialdayDiscription(String specialdayDiscription) {
-		this.specialdayDiscription = specialdayDiscription;
-	}
-
-	public String getSpecialdayDate() {
-		return specialdayDate;
-	}
-
-	public void setSpecialdayDate(String specialdayDate) {
-		this.specialdayDate = specialdayDate;
-	}
-
-	public String getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
-	public String getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
-
 	public void writeToFile(String s) throws IOException {
 		Gson g=new Gson();
         String Content = g.toJson(this);// 要写入的文本
-        File file = new File("/Users/hengyuliang/Desktop/"+s+".txt");// 要写入的文本文件
+        File file = new File("/Users/hengyuliang/Desktop/"+s+"SpecialDay.txt");// 要写入的文本文件
         try{
 	        if (!file.exists()) {// 如果文件不存在，则创建该文件
 	            file.createNewFile();
@@ -86,11 +34,10 @@ public class SpecialDay {
 	        writer.write(Content);// 写内容
 	        writer.flush();// 清空缓冲区，立即将输出流里的内容写到文件里
 	        writer.close();// 关闭输出流，施放资源
-	        }catch(Exception e){
-	        }
+	        }catch(Exception e){}
     }
 	public static SpecialDay readFromFile(String s) throws FileNotFoundException, IOException {
-        File file = new File("/Users/hengyuliang/Desktop/"+s+".txt");// 指定要读取的文件
+        File file = new File("/Users/hengyuliang/Desktop/"+s+"SpecialDay.txt");// 指定要读取的文件
         FileReader reader = new FileReader(file);// 获取该文件的输入流
         char[] bb = new char[1024];// 用来保存每次读取到的字符
         String str = "";// 用来将每次读取到的字符拼接，当然使用StringBuffer类更好
@@ -102,11 +49,4 @@ public class SpecialDay {
         Gson g=new Gson();
         return g.fromJson(str,SpecialDay.class);
     }
-	public static void main(String[] a){
-		try{
-		SpecialDay sd;
-		sd=SpecialDay.readFromFile("No.1");
-		System.out.println(sd.getSpecialdayName());
-		}catch(Exception e){}
-	}
 }

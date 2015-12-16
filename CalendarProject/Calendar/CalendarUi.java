@@ -119,7 +119,11 @@ public class CalendarUi extends JFrame implements ActionListener{
 			if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
 				
 				labelDay[i].setForeground(new Color(0,255,0));
-				Reminder r=new Reminder("Today, ");
+				String s= ""+calendar.getToyear()+""+calendar.getTomonth()+""+calendar.getToday();
+				//File f = new File("/Users/hengyuliang/Desktop/"+s+"Reseravtion.txt");
+				//if(f.exists()){
+				Reminder r=new Reminder("Today, ",calendar.getToyear(),calendar.getTomonth(),calendar.getToday());
+				//}
 			}else{
 				labelDay[i].setForeground(Color.BLACK);
 			}
@@ -180,20 +184,20 @@ public class CalendarUi extends JFrame implements ActionListener{
 //		c.add(JSouth,BorderLayout.SOUTH);
 		
 		//create the menu
-		jmb = new JMenuBar();
-		File = new JMenu("File");
-		Open = new JMenuItem("Open");
-		Save = new JMenuItem("Save");
-		File.add(Open);
-		File.add(Save);
-		Search = new JMenu("Search");
-		Year = new JMenuItem("Year");
-		Month = new JMenuItem("Month");
-		Search.add(Year);
-		Search.add(Month);
-		jmb.add(File);
-		jmb.add(Search);
-		c.add(jmb,BorderLayout.NORTH);
+//		jmb = new JMenuBar();
+//		File = new JMenu("File");
+//		Open = new JMenuItem("Open");
+//		Save = new JMenuItem("Save");
+//		File.add(Open);
+//		File.add(Save);
+//		Search = new JMenu("Search");
+//		Year = new JMenuItem("Year");
+//		Month = new JMenuItem("Month");
+//		Search.add(Year);
+//		Search.add(Month);
+//		jmb.add(File);
+//		jmb.add(Search);
+//		c.add(jmb,BorderLayout.NORTH);
 		
 		//add ActionListener 
 		nextMonth.addActionListener(this);
@@ -201,19 +205,19 @@ public class CalendarUi extends JFrame implements ActionListener{
 		nextYear.addActionListener(this);
 		previousYear.addActionListener(this);
 //		hashtable=new Hashtable();
-	    file=new File("event.txt");
-	    if(!file.exists())
-	      {
-	       try{
-	           FileOutputStream out=new FileOutputStream(file);
-	           ObjectOutputStream objectOut=new ObjectOutputStream(out);
-	           objectOut.writeObject(hashtable);
-	           objectOut.close();
-	           out.close();
-	          }
-	       catch(IOException e){
-	          }
-	      } 
+//	    file=new File("event.txt");
+//	    if(!file.exists())
+//	      {
+//	       try{
+//	           FileOutputStream out=new FileOutputStream(file);
+//	           ObjectOutputStream objectOut=new ObjectOutputStream(out);
+//	           objectOut.writeObject(hashtable);
+//	           objectOut.close();
+//	           out.close();
+//	          }
+//	       catch(IOException e){
+//	          }
+//	      } 
 
 		for(int i=0;i<42;i++){
 			int a=i;

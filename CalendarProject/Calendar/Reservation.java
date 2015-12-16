@@ -10,39 +10,16 @@ import java.util.Date;
 import com.google.gson.Gson;
 public class Reservation 
 {
-	private String createdFor;
 	private String startTime;
-	private String endTime;
-	private String reservationResourcetype;
-	private String resourceLocation;
-	private Date resourceDate;
-	private String reservationId;
+	private String location;
 	private String reservationName;
 	private String reservationDiscription;
-	private Date reservationDate;
-	public Reservation(String reservationId, String reservationName, 
-			String reservationDiscription, Date reservationDate,
-			String startTime, String endTime) {
-		this.reservationId = reservationId;
+	public Reservation(String reservationName, String reservationDiscription,String location,String startTime) {
 		this.reservationName = reservationName;
 		this.reservationDiscription = reservationDiscription;
-		this.reservationDate = reservationDate;
 		this.startTime = startTime;
-		this.endTime = endTime;
+		this.location = location;
 	}
-	public String getReservationId() {
-		return reservationId;
-	}
-
-	public void setReservationId(String reservationId) {
-		this.reservationId = reservationId;
-	}
-
-
-	public void setReservationName(String reservationName) {
-		this.reservationName = reservationName;
-	}
-
 	public String getReservationDiscription() {
 		return reservationDiscription;
 	}
@@ -50,15 +27,6 @@ public class Reservation
 	public void setReservationDiscription(String reservationDiscription) {
 		this.reservationDiscription = reservationDiscription;
 	}
-
-	public Date getReservationDate() {
-		return reservationDate;
-	}
-
-	public void setReservationDate(Date reservationDate) {
-		this.reservationDate = reservationDate;
-	}
-
 	public String getStartTime() {
 		return startTime;
 	}
@@ -66,18 +34,24 @@ public class Reservation
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-
-	public String getEndTime() {
-		return endTime;
+	
+	public String getLocation() {
+		return location;
 	}
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public String getReservationName() {
+		return reservationName;
+	}
+	public void setReservationName(String reservationName) {
+		this.reservationName = reservationName;
 	}
 	public void writeToFile(String s) throws IOException {
 		Gson g=new Gson();
         String Content = g.toJson(this);// 要写入的文本
-        File file = new File("/Users/hengyuliang/Desktop"+s);// 要写入的文本文件
+        File file = new File("/Users/hengyuliang/Desktop/"+s+"Reseravtion.txt");// 要写入的文本文件
+        try{
         if (!file.exists()) {// 如果文件不存在，则创建该文件
             file.createNewFile();
         }
@@ -85,9 +59,10 @@ public class Reservation
         writer.write(Content);// 写内容
         writer.flush();// 清空缓冲区，立即将输出流里的内容写到文件里
         writer.close();// 关闭输出流，施放资源
+        }catch(Exception e){}
     }
-	public void readFromFile() throws FileNotFoundException, IOException {
-        File file = new File("/Users/hengyuliang/Desktop");// 指定要读取的文件
+	public static Reservation readFromFile(String s) throws FileNotFoundException, IOException {
+        File file = new File("/Users/hengyuliang/Desktop/"+s+"Reseravtion.txt");// 指定要读取的文件
         FileReader reader = new FileReader(file);// 获取该文件的输入流
         char[] bb = new char[1024];// 用来保存每次读取到的字符
         String str = "";// 用来将每次读取到的字符拼接，当然使用StringBuffer类更好
@@ -96,5 +71,7 @@ public class Reservation
             str += new String(bb, 0, n);
         }
         reader.close();// 关闭输入流，释放连接
+        Gson g=new Gson();
+        return g.fromJson(str,Reservation.class);
     }
 }

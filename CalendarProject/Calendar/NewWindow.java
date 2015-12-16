@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
@@ -40,7 +42,6 @@ public class NewWindow extends JFrame{
 		JPanel js=new JPanel();
 		js.setLayout(new BorderLayout());
 		JButton saveS=new JButton("Save");
-
 		JButton deleteS=new JButton("Delete");
 		deleteS.addActionListener(new ActionListener(){
 			@Override
@@ -88,6 +89,11 @@ public class NewWindow extends JFrame{
 		namesa.setLineWrap(true); 
 		namesa.setWrapStyleWord(true);
 		namesa.setFont(new Font("Arial",1,20));
+		try {
+			SpecialDay sd;
+			sd=SpecialDay.readFromFile(""+year+""+month+""+day);
+			namesa.setText(sd.getSpecialdayName());
+		} catch (Exception e1) {} 
 		details.add(jnames,gbcs);
 		js.add(details,BorderLayout.CENTER);
 		tab.addTab("SpecialDay", js);
@@ -95,25 +101,10 @@ public class NewWindow extends JFrame{
 			public void actionPerformed(ActionEvent e){
 				try{
 					String content = namesa.getText();
-					String key = ""+year+""+month+""+day;
-//					FileInputStream   inOne=new FileInputStream(fileHoliday);
-//					ObjectInputStream inTwo=new ObjectInputStream(inOne);
-//					tableHoliday=(Hashtable)inTwo.readObject();
-//					inOne.close();
-//					inTwo.close();
-//					tableHoliday.put(key,content);                                  
-//					FileOutputStream out=new FileOutputStream(fileHoliday);
-//					ObjectOutputStream objectOut=new ObjectOutputStream(out);
-//					objectOut.writeObject(tableHoliday);
-//					objectOut.close();
-//					SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
-					SpecialDay s=new SpecialDay("No.1", namesa.getText(), 
-							"Hello!",""+year+""+month+""+day,"8:00", "10:00");
-					s.writeToFile("No.1");
-//					out.close();
+					SpecialDay s=new SpecialDay(namesa.getText());
+					s.writeToFile(""+year+""+month+""+day);
 		        }
-		      catch(Exception ee){
-		        }
+		      catch(Exception ee){}
 			}
 		});
 		
@@ -138,21 +129,59 @@ public class NewWindow extends JFrame{
 		jbe.add(cancelE);
 		je.add(jbe,BorderLayout.SOUTH);
 		JPanel detaile=new JPanel();
-		detaile.setLayout(new GridLayout(6,2));
-		final JTextField eventDate=new JTextField(""+year+"-"+month+"-"+day);
-		final JTextField eventName= new JTextField("enter name");
-		final JTextField eventDetails= new JTextField("enter Details");
-
-		final JTextField eventLocation= new JTextField("enter location");
-		final JTextField eventStartTime= new JTextField("enter startTime");
-		final JTextField eventEndTime= new JTextField("enter endTime");
-		detaile.add(new JLabel("Event Date:")); detaile.add(eventDate);
-		detaile.add(new JLabel("Event Name:")); detaile.add(eventName);
-		detaile.add(new JLabel("Event Description:")); detaile.add(eventDetails);
-		detaile.add(new JLabel("Event Location:")); detaile.add(eventLocation);
-		detaile.add(new JLabel("Event Start Time:")); detaile.add(eventStartTime);
-		detaile.add(new JLabel("Event End Time:")); detaile.add(eventEndTime);
-
+		detaile.setLayout(new GridLayout(4,2));
+		JTextArea eventName= new JTextArea();	
+		JScrollPane jeventName=new JScrollPane(eventName);
+		eventName.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+		eventName.setLineWrap(true); 
+		eventName.setWrapStyleWord(true);
+		eventName.setFont(new Font("Arial",1,20));
+		try {
+			Event e;
+			e=Event.readFromFile(""+year+""+month+""+day);
+			eventName.setText(e.getEventName());
+		} catch (Exception e1) {} 
+		JTextArea eventDetails= new JTextArea();
+		JScrollPane jeventDetails=new JScrollPane(eventDetails);
+		eventDetails.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+		eventDetails.setLineWrap(true); 
+		eventDetails.setWrapStyleWord(true);
+		eventDetails.setFont(new Font("Arial",1,20));
+		try {
+			Event e;
+			e=Event.readFromFile(""+year+""+month+""+day);
+			eventDetails.setText(e.getEventDiscription());
+		} catch (Exception e1) {} 
+		JTextArea eventLocation= new JTextArea();
+		JScrollPane jeventLocation=new JScrollPane(eventLocation);
+		eventLocation.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+		eventLocation.setLineWrap(true); 
+		eventLocation.setWrapStyleWord(true);
+		eventLocation.setFont(new Font("Arial",1,20));
+		try {
+			Event e;
+			e=Event.readFromFile(""+year+""+month+""+day);
+			eventLocation.setText(e.getLocation());
+		} catch (Exception e1) {} 
+		JTextArea eventStartTime= new JTextArea();
+		JScrollPane jeventStartTime=new JScrollPane(eventStartTime);
+		eventStartTime.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+		eventStartTime.setLineWrap(true); 
+		eventStartTime.setWrapStyleWord(true);
+		eventStartTime.setFont(new Font("Arial",1,20));
+		try {
+			Event e;
+			e=Event.readFromFile(""+year+""+month+""+day);
+			eventStartTime.setText(e.getStartTime());
+		} catch (Exception e1) {} 
+		detaile.add(new JLabel("Event Name:")); 
+		detaile.add(jeventName);
+		detaile.add(new JLabel("Event Description:")); 
+		detaile.add(jeventDetails);
+		detaile.add(new JLabel("Event Location:")); 
+		detaile.add(jeventLocation);
+		detaile.add(new JLabel("Event Start Time:")); 
+		detaile.add(jeventStartTime);
 		je.add(detaile,BorderLayout.CENTER);
 		tab.addTab("Event", je);
 		saveE.addActionListener(new ActionListener(){
@@ -162,14 +191,10 @@ public class NewWindow extends JFrame{
 					String location = eventLocation.getText();
 					String details = eventDetails.getText();
 					String startTime=eventStartTime.getText();
-					String endTime=eventEndTime.getText();
-					Date eventDateValue = new SimpleDateFormat("yyyy-MM-dd").parse(eventDate.getText());
-					Event event=new Event(name,location,details,eventDateValue,startTime,endTime);
-//					calendarData.addEventAndSave(event);
+					Event et=new Event(name,location,details,startTime);
+					et.writeToFile(""+year+""+month+""+day);
 		        }
 		      catch(Exception ee){
-                  ee.printStackTrace();
-                  throw new RuntimeException("Error capturing event");
 		        }
                 dispose();
             }
@@ -196,45 +221,74 @@ public class NewWindow extends JFrame{
 		jbr.add(cancelR, BorderLayout.WEST);
 		jr.add(jbr,BorderLayout.SOUTH);
 		JPanel detailr=new JPanel();
-        detailr.setLayout(new GridLayout(6,2));
-        final JTextField reservationDate=new JTextField(""+year+"-"+month+"-"+day);
-        final JTextField resourceType= new JTextField("enter Type:");
-        final JTextField resourceLocation= new JTextField("enter Location:");
-
-        final JTextField rCreatedBy= new JTextField("createdFor:");
-
-        final JTextField rStartTime= new JTextField("enter startTime:");
-        final JTextField rEndTime= new JTextField("enter endTime:");
-
-        detailr.add(new JLabel("Reservation Date:")); detailr.add(reservationDate);
-        detailr.add(new JLabel("Resource Type:")); detailr.add(resourceType);
-        detailr.add(new JLabel("Created For:")); detailr.add(rCreatedBy);
-        detailr.add(new JLabel("Resource Location:")); detailr.add(resourceLocation);
-        detailr.add(new JLabel("Event Start Time:")); detailr.add(rStartTime);
-        detailr.add(new JLabel("Event End Time:")); detailr.add(rEndTime);
-
-
+        detailr.setLayout(new GridLayout(4,2));
+        JTextArea resourceLocation= new JTextArea();
+        JScrollPane jresourceLocation=new JScrollPane(resourceLocation);
+        resourceLocation.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+        resourceLocation.setLineWrap(true); 
+        resourceLocation.setWrapStyleWord(true);
+        resourceLocation.setFont(new Font("Arial",1,20));
+		try {
+			Reservation rv;
+			rv=Reservation.readFromFile(""+year+""+month+""+day);
+			resourceLocation.setText(rv.getReservationName());
+		} catch (Exception e1) {} 
+        JTextArea rStartTime= new JTextArea();
+        JScrollPane jrStartTime=new JScrollPane(rStartTime);
+        rStartTime.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+        rStartTime.setLineWrap(true); 
+        rStartTime.setWrapStyleWord(true);
+        rStartTime.setFont(new Font("Arial",1,20));
+		try {
+			Reservation rv;
+			rv=Reservation.readFromFile(""+year+""+month+""+day);
+			rStartTime.setText(rv.getStartTime());
+		} catch (Exception e1) {} 
+        JTextArea rName= new JTextArea();
+        JScrollPane jrName=new JScrollPane(rName);
+        rName.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+        rName.setLineWrap(true); 
+        rName.setWrapStyleWord(true);
+        rName.setFont(new Font("Arial",1,20));
+		try {
+			Reservation rv;
+			rv=Reservation.readFromFile(""+year+""+month+""+day);
+			rName.setText(rv.getReservationName());
+		} catch (Exception e1) {} 
+        JTextArea rDetails= new JTextArea();
+        JScrollPane jrDetails=new JScrollPane(rDetails);
+        rDetails.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+        rDetails.setLineWrap(true); 
+        rDetails.setWrapStyleWord(true);
+        rDetails.setFont(new Font("Arial",1,20));
+		try {
+			Reservation rv;
+			rv=Reservation.readFromFile(""+year+""+month+""+day);
+			rDetails.setText(rv.getReservationDiscription());
+		} catch (Exception e1) {} 
+        detailr.add(new JLabel("Name:")); 
+        detailr.add(jrName);
+        detailr.add(new JLabel("Resource Location:")); 
+        detailr.add(jresourceLocation);
+        detailr.add(new JLabel("Details:")); 
+        detailr.add(jrDetails);
+        detailr.add(new JLabel("Event Start Time:")); 
+        detailr.add(jrStartTime);
 		jr.add(detailr,BorderLayout.CENTER);
 		tab.addTab("Reservation", jr);
-
 		c.add(tab,BorderLayout.CENTER);
 		saveR.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
                 try{
-                    String name = rCreatedBy.getText();
+                    String name = rName.getText();
                     String location = resourceLocation.getText();
-                    String details = resourceType.getText();
+                    String details = rDetails.getText();
                     String startTime=eventStartTime.getText();
-                    String endTime=eventEndTime.getText();
-                    Date eventDateValue = new SimpleDateFormat("yyyy-MM-dd").parse(reservationDate.getText());
-                    Reservation event=new Reservation(name,details,location,eventDateValue,startTime,endTime);
-//                    calendarData.addReservationAndSave(event);
+                    Reservation rv=new Reservation(name,details,location,startTime);
+                    rv.writeToFile(""+year+""+month+""+day);
                 }
-                catch(Exception ee){
-                    ee.printStackTrace();
-                    throw new RuntimeException("Error capturing event");
-                }
+                catch(Exception ee){}
                 dispose();
 			}
 		});
