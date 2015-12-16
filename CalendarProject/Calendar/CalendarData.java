@@ -59,28 +59,43 @@ public class CalendarData {
 		Calendar c=Calendar.getInstance();
 		c.set(year, month-1,1);
 		int week=c.get(Calendar.DAY_OF_WEEK)-1;
-		int noOfDaysInMonth=c.getActualMaximum(Calendar.DAY_OF_MONTH);
-		List<Integer> eventDays=new ArrayList();
-		List<Integer> reservatoinDays=new ArrayList();
-		for(Event event: events){
-			Calendar cal=Calendar.getInstance();
-			cal.setTime(event.getEventDate());
-			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
-				eventDays.add(cal.get(Calendar.DAY_OF_MONTH));
-			}
-		}
-		for(Reservation event: reservations){
-			Calendar cal=Calendar.getInstance();
-//			cal.setTime(event.getResourceDate());
-			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
-				reservatoinDays.add(cal.get(Calendar.DAY_OF_MONTH));
-			}
-		}
-		int n=1;
-		for(int i=week;i<week+noOfDaysInMonth;i++){
-			temp[i]=String.valueOf(n)+(eventDays.contains(n)?"*":"")+(reservatoinDays.contains(n)?"#":"");
-			n++;
-		}
+		int day=0;
+		if(month==1||month==3||month==5||month==7||month==8||month==10||month==12){ 
+			day=31;}               
+	    if(month==4||month==6||month==9||month==11){   
+	    	day=30;}             
+	    if(month==2){   
+	    	if(((year%4==0)&&(year%100!=0))||(year%400==0)){   
+	    		day=29;
+	    		}else{   
+	                   day=28;}   
+	            }    
+	    for(int i=week,n=1;i<week+day;i++){   
+	    	temp[i]=String.valueOf(n) ;   
+	    	n++;}              
+//		int noOfDaysInMonth=c.getActualMaximum(Calendar.DAY_OF_MONTH);
+//		List<Integer> eventDays=new ArrayList();
+//		List<Integer> reservatoinDays=new ArrayList();
+//		for(Event event: events){
+//			Calendar cal=Calendar.getInstance();
+//			cal.setTime(event.getEventDate());
+//			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
+//				eventDays.add(cal.get(Calendar.DAY_OF_MONTH));
+//			}
+//		}
+//		for(Reservation event: reservations){
+//			Calendar cal=Calendar.getInstance();
+////			cal.setTime(event.getResourceDate());
+//			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
+//				reservatoinDays.add(cal.get(Calendar.DAY_OF_MONTH));
+//			}
+//		}
+//		int n=1;
+//		for(int i=week;i<week+noOfDaysInMonth;i++){
+//			temp[i]=String.valueOf(n)+(eventDays.contains(n)?"*":"")+(reservatoinDays.contains(n)?"#":"");
+//			n++;
+//		}
+		
 		return temp;
 	
 	}

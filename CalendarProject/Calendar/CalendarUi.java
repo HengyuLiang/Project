@@ -287,7 +287,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 				labelDay[i].setText(day[i]);
 				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
 					
-					labelDay[i].setForeground(Color.blue);
+					labelDay[i].setForeground(new Color(0,255,0));
 				}else{
 					labelDay[i].setForeground(Color.BLACK);
 				}
@@ -309,7 +309,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 				labelDay[i].setText(day[i]);
 				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
 					
-					labelDay[i].setForeground(Color.blue);
+					labelDay[i].setForeground(new Color(0,255,0));
 				}else{
 					labelDay[i].setForeground(Color.BLACK);
 				}
@@ -325,7 +325,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 			for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
 				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
-					labelDay[i].setForeground(Color.blue);
+					labelDay[i].setForeground(new Color(0,255,0));
 				}else{
 					labelDay[i].setForeground(Color.BLACK);
 				}
@@ -344,7 +344,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 			for(int i=0;i<42;i++){
 				labelDay[i].setText(day[i]);
 				if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth()&&i==calendar.getToday()){
-					labelDay[i].setForeground(Color.blue);
+					labelDay[i].setForeground(new Color(0,255,0));
 				}else{
 					labelDay[i].setForeground(Color.BLACK);
 				}
