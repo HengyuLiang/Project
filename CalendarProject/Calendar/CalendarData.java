@@ -90,7 +90,7 @@ public class CalendarData {
 		for(int i=week;i<week+noOfDaysInMonth;i++){
 			temp[i]=String.valueOf(n);
 			if(eventDays.contains(n)){
-				temp[i]+="*";
+				temp[i]+="&";
 			}
 			if(reservatoinDays.contains(n)){
 				temp[i]+="#";

@@ -124,12 +124,35 @@ public class CalendarUi extends JFrame implements ActionListener{
 				//File f = new File("/Users/hengyuliang/Desktop/"+s+"Reseravtion.txt");
 				//if(f.exists()){
 				Reminder r=new Reminder("Today, ",calendar.getToyear(),calendar.getTomonth(),calendar.getToday(),calendar);
+
 				//}
 			}else{
 				labelDay[i].setForeground(Color.BLACK);
 			}
+
+			if(text.contains("&") || text.contains("#")){
+				boolean hasEvent=false;
+				boolean hasReservation=false;
+				if(text.contains("&")){
+					hasEvent=true;
+				}
+				if(text.contains("#")){
+					hasReservation=true;
+				}
+				text=text.replaceAll("&","").replaceAll("#","");
+				text+=".";
+				labelDay[i].setText(text);
+
+				labelDay[i].setForeground(new Color(255,hasEvent?255:0, hasReservation?255:0));
+			}
+
 			if(i%7==0||i%7==6){
 				labelDay[i].setForeground(Color.red);
+			}else{
+				if(text.contains("h")){
+					labelDay[i].setForeground(Color.red);
+					labelDay[i].setText(text.replaceAll("h",""));
+				}
 			}
 
 		}
