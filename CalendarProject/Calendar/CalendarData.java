@@ -125,6 +125,10 @@ public class CalendarData {
 		saveUpdates();
 	}
 
+	public void deleteCalendarEvent(Long id){
+		calendarDetails.deleteById(id);
+		saveUpdates();
+	}
 
 	public void openCalendarEvents() {
 		File file = new File(calendarEventsFileName);
@@ -332,6 +336,24 @@ public class CalendarData {
 				}
 			}
 			return items;
+		}
+
+		public Collection<CalendarEvent> getAllCalendarEvents(){
+			Collection<CalendarEvent> allEvents= new ArrayList<>();
+			allEvents.addAll(events.values());
+			allEvents.addAll(reservations.values());
+			allEvents.addAll(holidays.values());
+			return allEvents;
+		}
+
+		public void deleteById(Long id){
+			if (holidays.containsKey(id)) {
+				holidays.remove(id);
+			}else if(events.containsKey(id)){
+				events.remove(id);
+			}else{
+				reservations.remove(id);
+			}
 		}
 	}
 

@@ -9,7 +9,7 @@ import java.util.Date;
 
 import com.google.gson.Gson;
 
-public class Event {
+public class Event implements CalendarEvent {
 	private String eventName;
 	private String location;
 	private String eventDiscription;
@@ -62,4 +62,15 @@ public class Event {
 		this.location = location;
 	}
 
+	@Override
+	public String toString() {
+		return "Event{" +
+				"eventDate=" + eventDate +
+				", eventName='" + eventName + '\'' +
+				", location='" + location + '\'' +
+				", eventDiscription='" + eventDiscription + '\'' +
+				", startTime='" + startTime + '\'' +
+				", id=" + id +
+				'}';
+	}
 }

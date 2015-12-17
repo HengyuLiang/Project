@@ -140,7 +140,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 					hasReservation=true;
 				}
 				text=text.replaceAll("&","").replaceAll("#","");
-				text+=".";
+				text+=":";
 				labelDay[i].setText(text);
 
 				labelDay[i].setForeground(new Color(255,hasEvent?255:0, hasReservation?255:0));
@@ -195,7 +195,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 							else{
 								if(e.getButton() == MouseEvent.BUTTON3){
 									//left button
-									NewWindow nw=new NewWindow(year,month,Integer.parseInt(labelDay[a].getText()),calendar);
+									NewWindow nw=new NewWindow(year,month,Integer.parseInt(labelDay[a].getText().replaceAll(":","")),calendar);
 								}else if(e.getButton() == MouseEvent.BUTTON1){
 									//right button 
 								}

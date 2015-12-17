@@ -5,9 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 public class NewWindow extends JFrame{
 	int year,month,day;
@@ -27,15 +31,6 @@ public class NewWindow extends JFrame{
 		JPanel js=new JPanel();
 		js.setLayout(new BorderLayout());
 		JButton saveS=new JButton("Save");
-		//JButton deleteS=new JButton("Delete");
-		/*deleteS.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				dispose();
-			
-			}
-		});*/
 
 		JButton cancelS=new JButton("Cancel");
 		cancelS.addActionListener(new ActionListener(){
@@ -53,6 +48,7 @@ public class NewWindow extends JFrame{
 		js.add(jbs,BorderLayout.SOUTH);
 		JPanel details=new JPanel();
 		details.setLayout(new GridLayout(2,2));
+
 		JTextField hDate=new JTextField(""+year+"-"+month+"-"+day);
 		JTextField hName=new JTextField("");
 		details.add(new JLabel("Date :")); details.add(hDate);
@@ -69,6 +65,7 @@ public class NewWindow extends JFrame{
 					calendarData.addHolidayAndSave(s);
 		        }
 		      catch(Exception ee){}
+				dispose();
 			}
 		});
 		
@@ -86,10 +83,8 @@ public class NewWindow extends JFrame{
 			
 			}
 		});
-		JButton deleteE=new JButton("Delete");
 		JPanel jbe=new JPanel(new FlowLayout());
 		jbe.add(saveE);
-		jbe.add(deleteE);
 		jbe.add(cancelE);
 		je.add(jbe,BorderLayout.SOUTH);
 		JPanel detaile=new JPanel();
@@ -162,10 +157,8 @@ public class NewWindow extends JFrame{
 			
 			}
 		});
-		JButton deleteR=new JButton("Delete");
 		JPanel jbr=new JPanel(new FlowLayout());
 		jbr.add(saveR,BorderLayout.EAST);
-		jbr.add(deleteR, BorderLayout.CENTER);
 		jbr.add(cancelR, BorderLayout.WEST);
 		jr.add(jbr,BorderLayout.SOUTH);
 		JPanel detailr=new JPanel();
@@ -224,6 +217,51 @@ public class NewWindow extends JFrame{
                 dispose();
 			}
 		});
+
+		Collection<CalendarEvent> calendarEvents=calendarData.getCalendarDetails().getAllCalendarEvents();
+		String[][] dataRows=new String[calendarEvents.size()][2];
+		int i=0;
+
+		DefaultTableModel defaultTableModel=new DefaultTableModel();
+		defaultTableModel.addColumn("Id");
+		defaultTableModel.addColumn("Details");
+		JTable jTable=new JTable(defaultTableModel);
+		for(CalendarEvent calendarEvent:calendarEvents){
+			defaultTableModel.addRow(new String[]{""+calendarEvent.getId(),calendarEvent.toString()});
+		}
+		JScrollPane list=new JScrollPane(jTable);
+
+		JPanel reviewPanel=new JPanel();
+		reviewPanel.setLayout(new BorderLayout());
+		JButton deleteRP=new JButton("Delete");
+		JButton canceRP=new JButton("Close");
+		JPanel rPbP=new JPanel(new FlowLayout());
+		rPbP.add(deleteRP);
+		rPbP.add(canceRP);
+		reviewPanel.add(rPbP,BorderLayout.SOUTH);
+		reviewPanel.add(list,BorderLayout.CENTER);
+		tab.add(reviewPanel,"Review List");
+
+		deleteRP.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				int row=jTable.getSelectedRow();
+				Long id=Long.valueOf((String)jTable.getValueAt(row,0));
+				calendarData.deleteCalendarEvent(id);
+				defaultTableModel.removeRow(row);
+				AbstractTableModel contactTableModel = (AbstractTableModel) jTable.getModel();
+				contactTableModel.fireTableRowsDeleted(row,row+1);
+				jTable.repaint();
+				repaint();
+			}
+		});
+		canceRP.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				dispose();
+			}
+		});
+
 		setVisible(true);
 	}
 

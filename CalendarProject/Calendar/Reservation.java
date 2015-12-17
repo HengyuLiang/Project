@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import com.google.gson.Gson;
-public class Reservation 
+public class Reservation  implements CalendarEvent
 {
 	private String startTime;
 	private String location;
@@ -62,5 +62,17 @@ public class Reservation
 	}
 	public void setReservationName(String reservationName) {
 		this.reservationName = reservationName;
+	}
+
+	@Override
+	public String toString() {
+		return "Reservation{" +
+				"reservationDate=" + reservationDate +
+				", startTime='" + startTime + '\'' +
+				", location='" + location + '\'' +
+				", reservationName='" + reservationName + '\'' +
+				", reservationDiscription='" + reservationDiscription + '\'' +
+				", id=" + id +
+				'}';
 	}
 }

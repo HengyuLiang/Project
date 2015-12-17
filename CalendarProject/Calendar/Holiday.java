@@ -9,7 +9,7 @@ import java.util.Date;
 
 import com.google.gson.Gson;
 
-public class Holiday {
+public class Holiday implements CalendarEvent {
 	private String name;
 	private Date holidayDate;
 	private final Long id;
@@ -36,5 +36,12 @@ public class Holiday {
 		return id;
 	}
 
-
+	@Override
+	public String toString() {
+		return "Holiday{" +
+				"holidayDate=" + holidayDate +
+				", name='" + name + '\'' +
+				", id=" + id +
+				'}';
+	}
 }
