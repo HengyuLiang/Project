@@ -17,6 +17,8 @@ public class CalendarData {
 
 	private String calendarEventsFileName="default-calendar-data.json";
  	public static final SimpleDateFormat DATE_FORMATER =  new SimpleDateFormat("MM/dd/yyyy");
+	public static final SimpleDateFormat DEFAULT_FORMATTER =  new SimpleDateFormat("yyyy-MM-dd");
+
 	public int getYear(){
 		return year;
 	}
@@ -128,6 +130,23 @@ public class CalendarData {
 	public void deleteCalendarEvent(Long id){
 		calendarDetails.deleteById(id);
 		saveUpdates();
+	}
+
+	public void loadHolidaysFromFile(File holidayFile){
+		try {
+			BufferedReader input=new BufferedReader(new InputStreamReader(new FileInputStream(holidayFile)));
+			String s="";
+			while((s= input.readLine())!=null){
+				String items[]=s.split(",");
+				Date date=DEFAULT_FORMATTER.parse(items[0]);
+				String name=items[1];
+				Holiday holiday=new Holiday(name,date);
+				addHolidayAndSave(holiday);
+				System.out.println("Loading Holidays:"+holiday);
+			}
+		}catch (Exception e){
+			throw new RuntimeException("Unable to load file:"+e);
+		}
 	}
 
 	public void openCalendarEvents() {

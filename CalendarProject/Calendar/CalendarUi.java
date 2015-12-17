@@ -113,50 +113,9 @@ public class CalendarUi extends JFrame implements ActionListener{
 			labelDay[i]=new JLabel("",JLabel.CENTER);
 			jpcenter.add(labelDay[i]);
 		}
-		String day[]=calendar.getDate();
-		for(int i=0;i<42;i++){
-			labelDay[i].setText(day[i]);
-			String text=day[i]==null?"-":day[i];
-			if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth() && text.contains(""+calendar.getToday())){
-				
-				labelDay[i].setForeground(new Color(0,255,0));
-				String s= ""+calendar.getToyear()+""+calendar.getTomonth()+""+calendar.getToday();
-				//File f = new File("/Users/hengyuliang/Desktop/"+s+"Reseravtion.txt");
-				//if(f.exists()){
-				Reminder r=new Reminder("Today, ",calendar.getToyear(),calendar.getTomonth(),calendar.getToday(),calendar);
 
-				//}
-			}else{
-				labelDay[i].setForeground(Color.BLACK);
-			}
 
-			if(text.contains("&") || text.contains("#")){
-				boolean hasEvent=false;
-				boolean hasReservation=false;
-				if(text.contains("&")){
-					hasEvent=true;
-				}
-				if(text.contains("#")){
-					hasReservation=true;
-				}
-				text=text.replaceAll("&","").replaceAll("#","");
-				text+=":";
-				labelDay[i].setText(text);
-
-				labelDay[i].setForeground(new Color(255,hasEvent?255:0, hasReservation?255:0));
-			}
-
-			if(i%7==0||i%7==6){
-				labelDay[i].setForeground(Color.red);
-			}else{
-				if(text.contains("h")){
-					labelDay[i].setForeground(Color.red);
-					labelDay[i].setText(text.replaceAll("h",""));
-				}
-			}
-
-		}
-
+		updateCalendar();
 		//in order to create a new panel in the center of the window
 		
 		final JPanel JCenter = new JPanel();
@@ -195,7 +154,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 							else{
 								if(e.getButton() == MouseEvent.BUTTON3){
 									//left button
-									NewWindow nw=new NewWindow(year,month,Integer.parseInt(labelDay[a].getText().replaceAll(":","")),calendar);
+									NewWindow nw=new NewWindow(year,month,Integer.parseInt(labelDay[a].getText().replaceAll(":","")),calendar,CalendarUi.this);
 								}else if(e.getButton() == MouseEvent.BUTTON1){
 									//right button 
 								}
@@ -325,6 +284,53 @@ public class CalendarUi extends JFrame implements ActionListener{
 			showDate.setText(calendar.getYear()+"."+calendar.getMonth() );
 		}
 	}
-	
+
+	public void updateCalendar(){
+		String day[]=calendar.getDate();
+		for(int i=0;i<42;i++){
+			labelDay[i].setText(day[i]);
+			String text=day[i]==null?"-":day[i];
+			if(calendar.getYear()==calendar.getToyear()&&calendar.getMonth()==calendar.getTomonth() && text.contains(""+calendar.getToday())){
+
+				labelDay[i].setForeground(new Color(0,255,0));
+				String s= ""+calendar.getToyear()+""+calendar.getTomonth()+""+calendar.getToday();
+				//File f = new File("/Users/hengyuliang/Desktop/"+s+"Reseravtion.txt");
+				//if(f.exists()){
+				Reminder r=new Reminder("Today, ",calendar.getToyear(),calendar.getTomonth(),calendar.getToday(),calendar);
+
+				//}
+			}else{
+				labelDay[i].setForeground(Color.BLACK);
+			}
+
+			if(text.contains("&") || text.contains("#")){
+				boolean hasEvent=false;
+				boolean hasReservation=false;
+				if(text.contains("&")){
+					hasEvent=true;
+				}
+				if(text.contains("#")){
+					hasReservation=true;
+				}
+				text=text.replaceAll("&","").replaceAll("#","");
+				text+=":";
+				labelDay[i].setText(text);
+
+				labelDay[i].setForeground(new Color(255,hasEvent?255:0, hasReservation?255:0));
+			}
+
+			if(i%7==0||i%7==6){
+				labelDay[i].setForeground(Color.red);
+			}else{
+				if(text.contains("h")){
+					labelDay[i].setForeground(Color.red);
+					labelDay[i].setText(text.replaceAll("h",""));
+				}
+			}
+
+		}
+		repaint();
+	}
+
 }	  
 //need new actionListener

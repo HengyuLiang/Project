@@ -3,6 +3,7 @@ package Calendar;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,18 +11,21 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 public class NewWindow extends JFrame{
 	int year,month,day;
 	private final CalendarData calendarData;
+	private final CalendarUi parent;
 	private static final SimpleDateFormat SIMPLE_DATE_FORMAT= new SimpleDateFormat("yyyy-MM-dd");
-	public NewWindow(int year, int month, int day,CalendarData calendarData){
+	public NewWindow(int year, int month, int day,CalendarData calendarData,CalendarUi parent){
 		this.year = year;
 		this.month = month;
 		this.day = day;
 		this.calendarData=calendarData;
+		this.parent=parent;
 		Container c = getContentPane();
 		setSize(400,300);
 		setLocation(800, 0);
@@ -30,6 +34,8 @@ public class NewWindow extends JFrame{
 		//create the holiday JPanel
 		JPanel js=new JPanel();
 		js.setLayout(new BorderLayout());
+		JButton loadS = new JButton("Load");
+
 		JButton saveS=new JButton("Save");
 
 		JButton cancelS=new JButton("Cancel");
@@ -41,10 +47,12 @@ public class NewWindow extends JFrame{
 			
 			}
 		});
-		JPanel jbs=new JPanel();
-		jbs.add(saveS,BorderLayout.EAST);
+		JPanel jbs=new JPanel(new FlowLayout());
+		jbs.add(loadS);
+		jbs.add(saveS);
+
 		//jbs.add(deleteS,BorderLayout.CENTER);
-		jbs.add(cancelS, BorderLayout.WEST);
+		jbs.add(cancelS);
 		js.add(jbs,BorderLayout.SOUTH);
 		JPanel details=new JPanel();
 		details.setLayout(new GridLayout(2,2));
@@ -63,12 +71,28 @@ public class NewWindow extends JFrame{
 					Date date=getDate(hDate.getText());
 					Holiday s=new Holiday(content,date);
 					calendarData.addHolidayAndSave(s);
-		        }
+					parent.updateCalendar();
+
+				}
 		      catch(Exception ee){}
 				dispose();
 			}
 		});
-		
+		loadS.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				JFileChooser chooser = new JFileChooser();
+				int returnVal = chooser.showOpenDialog(NewWindow.this);
+				if(returnVal == JFileChooser.APPROVE_OPTION) {
+					System.out.println("You chose to open this file: " +
+							chooser.getSelectedFile().getName());
+				}
+				File f=chooser.getSelectedFile();
+				calendarData.loadHolidaysFromFile(f);
+				parent.updateCalendar();
+				dispose();
+			}
+		});
 
 		//create the event JPanel
 		JPanel je=new JPanel();
@@ -83,6 +107,7 @@ public class NewWindow extends JFrame{
 			
 			}
 		});
+
 		JPanel jbe=new JPanel(new FlowLayout());
 		jbe.add(saveE);
 		jbe.add(cancelE);
@@ -136,7 +161,9 @@ public class NewWindow extends JFrame{
 					String startTime=eventStartTime.getText();
 					Event et=new Event(getDate(""+year+"-"+month+"-"+day),name,location,details,startTime);
 					calendarData.addEventAndSave(et);
-		        }
+					parent.updateCalendar();
+
+				}
 		      catch(Exception ee){
 		        }
                 dispose();
@@ -212,7 +239,9 @@ public class NewWindow extends JFrame{
                     String startTime=eventStartTime.getText();
                     Reservation rv=new Reservation(getDate(""+year+"-"+month+"-"+day),name,details,location,startTime);
                     calendarData.addReservationAndSave(rv);
-                }
+					parent.updateCalendar();
+
+				}
                 catch(Exception ee){}
                 dispose();
 			}
@@ -253,6 +282,8 @@ public class NewWindow extends JFrame{
 				contactTableModel.fireTableRowsDeleted(row,row+1);
 				jTable.repaint();
 				repaint();
+				parent.updateCalendar();
+
 			}
 		});
 		canceRP.addActionListener(new ActionListener() {
