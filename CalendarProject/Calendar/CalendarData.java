@@ -63,29 +63,33 @@ public class CalendarData {
 		List<Integer> eventDays=new ArrayList();
 		List<Integer> reservatoinDays=new ArrayList();
 		List<Integer> holidays=new ArrayList();
-		for(Event event: calendarDetails.events.values()){
-			Calendar cal=Calendar.getInstance();
-			cal.setTime(event.getEventDate());
-			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
-				eventDays.add(cal.get(Calendar.DAY_OF_MONTH));
+		if(!calendarDetails.events.isEmpty()) {
+			for (Event event : calendarDetails.events.values()) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(event.getEventDate());
+				if (cal.get(Calendar.YEAR) == year && cal.get(Calendar.MONTH) + 1 == month) {
+					eventDays.add(cal.get(Calendar.DAY_OF_MONTH));
+				}
 			}
 		}
-		for(Reservation event: calendarDetails.reservations.values()){
-			Calendar cal=Calendar.getInstance();
-			cal.setTime(event.getReservationDate());
-			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
-				reservatoinDays.add(cal.get(Calendar.DAY_OF_MONTH));
+		if(!calendarDetails.reservations.isEmpty()) {
+			for (Reservation event : calendarDetails.reservations.values()) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(event.getReservationDate());
+				if (cal.get(Calendar.YEAR) == year && cal.get(Calendar.MONTH) + 1 == month) {
+					reservatoinDays.add(cal.get(Calendar.DAY_OF_MONTH));
+				}
 			}
 		}
-
-		for(Holiday event: calendarDetails.holidays.values()){
-			Calendar cal=Calendar.getInstance();
-			cal.setTime(event.getHolidayDate());
-			if(cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)+1 == month){
-				holidays.add(cal.get(Calendar.DAY_OF_MONTH));
+		if(!calendarDetails.holidays.isEmpty()) {
+			for (Holiday event : calendarDetails.holidays.values()) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(event.getHolidayDate());
+				if (cal.get(Calendar.YEAR) == year && cal.get(Calendar.MONTH) + 1 == month) {
+					holidays.add(cal.get(Calendar.DAY_OF_MONTH));
+				}
 			}
 		}
-
 		int n=1;
 		for(int i=week;i<week+noOfDaysInMonth;i++){
 			temp[i]=String.valueOf(n);
@@ -132,9 +136,14 @@ public class CalendarData {
 			while ((n = reader.read(bb)) != -1) {
 				str += new String(bb, 0, n);
 			}
-			reader.close();// 关闭输入流，释放连接
-			Gson g = new Gson();
-			calendarDetails= g.fromJson(str, CalendarDetails.class);
+			reader.close();//
+			if(str.trim().length()>0) {
+				Gson g = new Gson();
+				calendarDetails = g.fromJson(str, CalendarDetails.class);
+				if(calendarDetails==null){
+					throw new RuntimeException("Unable to parse the calendar data file");
+				}
+			}
 		}catch (Exception e){
 			throw new RuntimeException("Unable to load file:"+e);
 		}
