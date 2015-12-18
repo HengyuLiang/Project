@@ -15,12 +15,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
-public class NewWindow extends JFrame{
+public class EventManagerFrame extends JFrame{
 	int year,month,day;
 	private final CalendarData calendarData;
 	private final CalendarUi parent;
 	private static final SimpleDateFormat SIMPLE_DATE_FORMAT= new SimpleDateFormat("yyyy-MM-dd");
-	public NewWindow(int year, int month, int day,CalendarData calendarData,CalendarUi parent){
+	public EventManagerFrame(int year, int month, int day,CalendarData calendarData,CalendarUi parent){
 		this.year = year;
 		this.month = month;
 		this.day = day;
@@ -82,7 +82,7 @@ public class NewWindow extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
 				JFileChooser chooser = new JFileChooser();
-				int returnVal = chooser.showOpenDialog(NewWindow.this);
+				int returnVal = chooser.showOpenDialog(EventManagerFrame.this);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
 					System.out.println("You chose to open this file: " +
 							chooser.getSelectedFile().getName());

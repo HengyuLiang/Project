@@ -154,7 +154,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 							else{
 								if(e.getButton() == MouseEvent.BUTTON3){
 									//left button
-									NewWindow nw=new NewWindow(year,month,Integer.parseInt(labelDay[a].getText().replaceAll(":","")),calendar,CalendarUi.this);
+									EventManagerFrame nw=new EventManagerFrame(year,month,Integer.parseInt(labelDay[a].getText().replaceAll(":","")),calendar,CalendarUi.this);
 								}else if(e.getButton() == MouseEvent.BUTTON1){
 									//right button 
 								}
