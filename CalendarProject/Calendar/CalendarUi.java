@@ -43,6 +43,7 @@ public class CalendarUi extends JFrame implements ActionListener{
 	Hashtable hashtable;  
 	File file;
 	final CalendarData calendar;
+	private Reminder reminder;
 	
 	public CalendarUi(){
 		Container c = getContentPane();
@@ -246,9 +247,11 @@ public class CalendarUi extends JFrame implements ActionListener{
 
 				labelDay[i].setForeground(new Color(0,255,0));
 				String s= ""+calendar.getToyear()+""+calendar.getTomonth()+""+calendar.getToday();
-				//File f = new File("/Users/hengyuliang/Desktop/"+s+"Reseravtion.txt");
-				//if(f.exists()){
-				Reminder r=new Reminder("Today, ",calendar.getToyear(),calendar.getTomonth(),calendar.getToday(),calendar);
+				if(reminder == null && (text.contains("&") || text.contains("#") || text.contains("h"))){
+					reminder = new Reminder("Today, ",calendar.getToyear(),calendar.getTomonth(),calendar.getToday(),calendar);
+				}else{
+					reminder=null;
+				}
 
 				//}
 			}else{
@@ -273,12 +276,12 @@ public class CalendarUi extends JFrame implements ActionListener{
 
 			if(i%7==0||i%7==6){
 				labelDay[i].setForeground(Color.red);
-			}else{
-				if(text.contains("h")){
-					labelDay[i].setForeground(Color.red);
-					labelDay[i].setText(text.replaceAll("h",""));
-				}
 			}
+			if(text.contains("h")){
+				labelDay[i].setForeground(Color.red);
+				labelDay[i].setText(text.replaceAll("h",""));
+			}
+			
 
 		}
 		repaint();

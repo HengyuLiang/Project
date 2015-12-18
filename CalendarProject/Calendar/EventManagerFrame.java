@@ -217,6 +217,8 @@ public class EventManagerFrame extends JFrame{
         rDetails.setLineWrap(true); 
         rDetails.setWrapStyleWord(true);
         rDetails.setFont(new Font("Arial",1,20));
+        
+        
 
         detailr.add(new JLabel("Name:")); 
         detailr.add(jrName);

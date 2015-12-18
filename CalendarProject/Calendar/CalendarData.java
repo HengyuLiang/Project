@@ -1,9 +1,5 @@
 package Calendar;
 
-//import org.json.simple.JSONArray;
-//import org.json.simple.JSONObject;
-//import org.json.simple.parser.JSONParser;
-
 import com.google.gson.Gson;
 import com.google.gson.internal.bind.CollectionTypeAdapterFactory;
 
@@ -62,6 +58,7 @@ public class CalendarData {
 		int week=c.get(Calendar.DAY_OF_WEEK)-1;
 
 		int noOfDaysInMonth=c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
 		List<Integer> eventDays=new ArrayList();
 		List<Integer> reservatoinDays=new ArrayList();
 		List<Integer> holidays=new ArrayList();
@@ -143,6 +140,11 @@ public class CalendarData {
 				Holiday holiday=new Holiday(name,date);
 				addHolidayAndSave(holiday);
 				System.out.println("Loading Holidays:"+holiday);
+				try{
+					Thread.sleep(2);
+				}catch(Exception e){
+					
+				}
 			}
 		}catch (Exception e){
 			throw new RuntimeException("Unable to load file:"+e);
@@ -175,130 +177,6 @@ public class CalendarData {
 	public CalendarDetails getCalendarDetails(){
 		return calendarDetails;
 	}
-//
-//	public void openCalendarEvents(String fileName){
-//		calendarEventsFileName=fileName;
-//
-//		JSONParser parser = new JSONParser();
-//
-//		try {
-			//
-//			JSONParser parser=new JSONParser(Source.sourceFor("calendarData", new File(fileName)),new ErrorManager());
-//			Node node=parser.parse();
-			//read node for events and reservations
-			//node.e
-//		}catch (Exception e){
-//			throw new RuntimeException("Unable to load file:",e);
-//			Object obj = parser.parse(new FileReader(fileName));
-//
-//			JSONObject jsonObject = (JSONObject) obj;
-//
-//			JSONArray events = (JSONArray) jsonObject.get("Events");
-//
-//            for(Object eventObject : events){
-//				JSONObject eventJsonObject = (JSONObject) eventObject;
-//
-//				//Events
-//				Event event= new Event(getJsonString(eventJsonObject,"name"),getJsonString(eventJsonObject,"location"),
-//						getJsonString(eventJsonObject,"description"), DATE_FORMATER.parse(getJsonString(eventJsonObject,"date")),
-//						getJsonString(eventJsonObject,"startTime"), getJsonString(eventJsonObject,"endTime"));
-//				System.out.println(event);
-//
-//				this.events.add(event);
-//			}
-//
-//            JSONArray reservations = (JSONArray) jsonObject.get("Reservations");
-//            for(Object eventObject : reservations){
-//                JSONObject eventJsonObject = (JSONObject) eventObject;
-//
-//                //Events
-//                Reservation event= new Reservation(getJsonString(eventJsonObject,"name"),
-//                        getJsonString(eventJsonObject,"description"),getJsonString(eventJsonObject,"location"),
-//                         DATE_FORMATER.parse(getJsonString(eventJsonObject,"date")),
-//                        getJsonString(eventJsonObject,"startTime"), getJsonString(eventJsonObject,"endTime"));
-//                System.out.println(event);
-//
-//                this.reservations.add(event);
-//            }
-//
-//
-//
-//        } catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-//
-//
-//	private String getJsonString(JSONObject jsonObject, String columnName){
-//		return (String) jsonObject.get(columnName);
-//	}
-//
-//	private Date getJsonDate(JSONObject jsonObject, String columnName){
-//		return (Date) jsonObject.get(columnName);
-//	}
-//
-//	public void saveCalendarEvents(String fileName){
-//		try {
-//			PrintWriter printWriter = new PrintWriter(new FileOutputStream(fileName));
-//			printWriter.println("{");
-//			printWriter.print("\"Events\":[");
-//			StringBuilder builder=new StringBuilder();
-//			if(!events.isEmpty()) {
-//				for (Event e : events) {
-//					builder.append("\n");
-//					builder.append("{");
-//					builder.append(getPair("name", e.getEventName())).append(",");
-//                    builder.append(getPair("location", e.getLocation())).append(",");
-//					builder.append(getPair("description", e.getEventDiscription())).append(",");
-//					builder.append(getPair("date", DATE_FORMATER.format(e.getEventDate()))).append(",");
-//					builder.append(getPair("startTime", e.getStartTime())).append(",");
-//					builder.append(getPair("endTime", e.getEndTime()));
-//					builder.append("},");
-//				}
-//				printWriter.println(builder.toString().substring(0, builder.toString().length() - 1));
-//			}
-//			System.out.println(builder.toString().substring(0,builder.toString().length()-1));
-//			printWriter.println("]");
-//			printWriter.print("\"Reservations\":[");
-//			StringBuilder builder2=new StringBuilder();
-//			for(Reservation e: reservations){
-//				builder2.append("\n");
-//				builder2.append("{");
-//				builder2.append(getPair("name",e.getReservationName())).append(",");
-////				builder2.append(getPair("resourceType",e.getReservationResourcetype())).append(",");
-////				builder2.append(getPair("location",e.getResourceLocation())).append(",");
-////				builder2.append(getPair("date",DATE_FORMATER.format(e.getResourceDate()))).append(",");
-//				builder2.append("},");
-//			if(!reservations.isEmpty()) {
-//				for (Reservation e : reservations) {
-//					builder2.append("\n");
-//					builder2.append("{");
-//					builder2.append(getPair("name", e.getCreatedFor())).append(",");
-//					builder2.append(getPair("resourceType", e.getReservationResourcetype())).append(",");
-//					builder2.append(getPair("location", e.getResourceLocation())).append(",");
-//					builder2.append(getPair("date", DATE_FORMATER.format(e.getResourceDate()))).append(",");
-//                    builder.append(getPair("startTime", e.getStartTime())).append(",");
-//                    builder.append(getPair("endTime", e.getEndTime()));
-//					builder2.append("},");
-//				}
-//				printWriter.println(builder2.toString().substring(0, builder2.toString().length() - 1));
-//				System.out.println(builder2.toString().substring(0, builder2.toString().length() - 1));
-//			}
-//
-//
-//			printWriter.println("]");
-//            printWriter.println("}");
-//			printWriter.flush();
-//			printWriter.close();
-//		}catch(FileNotFoundException fnfe){
-//			throw new RuntimeException("Unable to save the events/reservations into file");
-//		}
-//
-//	}
-//
-//	private String getPair(String name, String value){
-//		return ""+"\""+name+"\":\""+value+"\"";
-//	}
 
     public static void main(String args[]){
        new CalendarData().openCalendarEvents();
