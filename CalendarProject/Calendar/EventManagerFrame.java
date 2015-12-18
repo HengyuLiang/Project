@@ -204,13 +204,7 @@ public class EventManagerFrame extends JFrame{
         rStartTime.setWrapStyleWord(true);
         rStartTime.setFont(new Font("Arial",1,20));
 
-        JTextArea rName= new JTextArea();
-        JScrollPane jrName=new JScrollPane(rName);
-        rName.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
-        rName.setLineWrap(true); 
-        rName.setWrapStyleWord(true);
-        rName.setFont(new Font("Arial",1,20));
-
+        
         JTextArea rDetails= new JTextArea();
         JScrollPane jrDetails=new JScrollPane(rDetails);
         rDetails.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
@@ -221,6 +215,8 @@ public class EventManagerFrame extends JFrame{
         
 
         detailr.add(new JLabel("Name:")); 
+        String resourceList[]=new String[]{"Class Rooms", "Lab","VC Rooms","High Performance Clusters Nodes", "Shuttless","Dorm Guest rooms"};
+        final JComboBox<String> jrName=new JComboBox<String>(resourceList);
         detailr.add(jrName);
         detailr.add(new JLabel("Resource Location:")); 
         detailr.add(jresourceLocation);
@@ -235,7 +231,7 @@ public class EventManagerFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
                 try{
-                    String name = rName.getText();
+                    String name = (String)jrName.getSelectedItem();
                     String location = resourceLocation.getText();
                     String details = rDetails.getText();
                     String startTime=eventStartTime.getText();

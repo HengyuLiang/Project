@@ -135,7 +135,7 @@ public class CalendarData {
 			String s="";
 			while((s= input.readLine())!=null){
 				String items[]=s.split(",");
-				Date date=DEFAULT_FORMATTER.parse(items[0]);
+				Date date=DEFAULT_FORMATTER.parse(items[0].trim());
 				String name=items[1];
 				Holiday holiday=new Holiday(name,date);
 				addHolidayAndSave(holiday);
@@ -147,6 +147,7 @@ public class CalendarData {
 				}
 			}
 		}catch (Exception e){
+			e.printStackTrace();
 			throw new RuntimeException("Unable to load file:"+e);
 		}
 	}
@@ -188,6 +189,13 @@ public class CalendarData {
 		private Map<Long,Holiday> holidays = new TreeMap();
 
 		public void addHoliday(Holiday holiday){
+			for(Holiday holidays: holidays.values()){
+				if(holidays.getEventDate().compareTo(holiday.getEventDate())==0 &&
+						holidays.getName().equalsIgnoreCase(holiday.getName())){
+					System.out.println("Dupe holiday not adding:");
+					return;
+				}
+			}
 			holidays.put(holiday.getId(),holiday);
 		}
 		public void addEvent(Event event){
