@@ -215,7 +215,7 @@ public class EventManagerFrame extends JFrame{
         
 
         detailr.add(new JLabel("Name:")); 
-        String resourceList[]=new String[]{"Class Rooms", "Lab","VC Rooms","High Performance Clusters Nodes", "Shuttless","Dorm Guest rooms"};
+        String resourceList[]=new String[]{"Class Rooms", "Lab","VC Rooms","High Performance Clusters Nodes", "Shuttle","Dorm Guest rooms"};
         final JComboBox<String> jrName=new JComboBox<String>(resourceList);
         detailr.add(jrName);
         detailr.add(new JLabel("Resource Location:")); 
@@ -277,14 +277,16 @@ public class EventManagerFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
 				int row=jTable.getSelectedRow();
-				Long id=Long.valueOf((String)jTable.getValueAt(row,3));
-				calendarData.deleteCalendarEvent(id);
-				defaultTableModel.removeRow(row);
-				AbstractTableModel contactTableModel = (AbstractTableModel) jTable.getModel();
-				contactTableModel.fireTableRowsDeleted(row,row+1);
-				jTable.repaint();
-				repaint();
-				parent.updateCalendar();
+				if(row!=-1){
+					Long id=Long.valueOf((String)jTable.getValueAt(row,3));
+					calendarData.deleteCalendarEvent(id);
+					defaultTableModel.removeRow(row);
+					AbstractTableModel contactTableModel = (AbstractTableModel) jTable.getModel();
+					contactTableModel.fireTableRowsDeleted(row,row+1);
+					jTable.repaint();
+					repaint();
+					parent.updateCalendar();
+				}
 
 			}
 		});
