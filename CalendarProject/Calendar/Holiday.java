@@ -36,6 +36,9 @@ public class Holiday implements CalendarEvent {
 		return id;
 	}
 
+	public Date getEventDate(){
+		return getHolidayDate();
+	}
 	@Override
 	public String toString() {
 		return "Holiday{" +

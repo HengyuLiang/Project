@@ -252,11 +252,15 @@ public class NewWindow extends JFrame{
 		int i=0;
 
 		DefaultTableModel defaultTableModel=new DefaultTableModel();
-		defaultTableModel.addColumn("Id");
-		defaultTableModel.addColumn("Details");
+		defaultTableModel.addColumn("Date");
+		defaultTableModel.addColumn("Type");
+		defaultTableModel.addColumn("Name");
+		defaultTableModel.addColumn("id");
 		JTable jTable=new JTable(defaultTableModel);
 		for(CalendarEvent calendarEvent:calendarEvents){
-			defaultTableModel.addRow(new String[]{""+calendarEvent.getId(),calendarEvent.toString()});
+			defaultTableModel.addRow(new String[]{""+new java.sql.Date(calendarEvent.getEventDate().getTime()).toString()
+					, calendarEvent instanceof Holiday ? "Holiday" : (calendarEvent instanceof Event ? "Event" : "Reservation")
+					, calendarEvent.getName(),calendarEvent.getId().toString()});
 		}
 		JScrollPane list=new JScrollPane(jTable);
 
@@ -275,7 +279,7 @@ public class NewWindow extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
 				int row=jTable.getSelectedRow();
-				Long id=Long.valueOf((String)jTable.getValueAt(row,0));
+				Long id=Long.valueOf((String)jTable.getValueAt(row,3));
 				calendarData.deleteCalendarEvent(id);
 				defaultTableModel.removeRow(row);
 				AbstractTableModel contactTableModel = (AbstractTableModel) jTable.getModel();

@@ -62,6 +62,9 @@ public class Event implements CalendarEvent {
 		this.location = location;
 	}
 
+	public String getName(){
+		return getEventName();
+	}
 	@Override
 	public String toString() {
 		return "Event{" +

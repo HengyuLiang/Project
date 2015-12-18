@@ -64,6 +64,12 @@ public class Reservation  implements CalendarEvent
 		this.reservationName = reservationName;
 	}
 
+	public Date getEventDate(){
+		return getReservationDate();
+	}
+	public String getName(){
+		return getReservationName();
+	}
 	@Override
 	public String toString() {
 		return "Reservation{" +
